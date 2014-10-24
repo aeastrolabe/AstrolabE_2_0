@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import dev.astrolabe.part.AstrolabePartView;
-import dev.sky.Constellation;
 
 
 @SuppressWarnings("serial")

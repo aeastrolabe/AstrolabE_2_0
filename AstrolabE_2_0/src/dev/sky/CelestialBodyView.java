@@ -19,9 +19,9 @@ public class CelestialBodyView extends JPanel  {
 	protected double abscissa;
 	protected double ordinate;
 	
-	public int size; //TODO : remplacer size par la taille rÃ©elle du panel
+	public int size; //TODO : remplacer size par la taille réelle du panel
 	
-	public static int sizeCoeff = 2;
+	public double sizeCoeff = 1;
 
 	public BufferedImage image;
 	
@@ -44,7 +44,7 @@ public class CelestialBodyView extends JPanel  {
 	public int getDiameter() {
 		int d = 0;
 		double m = controller.model.magnitude;
-		d = (int) (-8 / 7.5 * m + 8);
+		d = (int) (-8 / 7.5 * m + 8)*2;
 		return d;
 	}
 	
@@ -74,10 +74,10 @@ public class CelestialBodyView extends JPanel  {
 
 		x+=CelestialBodyController.astrolabeController.getAstrolabeCenter().getX();
 		y+=CelestialBodyController.astrolabeController.getAstrolabeCenter().getY();
-		size =  (int) (getDiameter()*sizeCoeff*
+		size =  (int) ( getDiameter()*sizeCoeff*
 				Math.sqrt
 				(CelestialBodyController.astrolabeController.getAstrolabeScale()));
-		setBounds((int) x-size/2, (int) y-size/2, 2*size/2, 2*size/2);
+		setBounds((int) x-size/2, (int) y-size/2, size, size);
 		repaint();
 		CelestialBodyController.astrolabeController.getView().add(this,0);
 		CelestialBodyController.astrolabeController.getView().repaint();
@@ -91,8 +91,12 @@ public class CelestialBodyView extends JPanel  {
 //			g.drawLine(0, 0, size, size);
 //			g.drawLine(size, 0, 0, size);
 //		}
-		g.drawImage(image, 0,0, size, size,null);
+
+		//TODO temporary to fix the image alpha problem
+		g.drawImage(image, 0, 0, size, size, null);
+		g.drawImage(image, 0, 0, size, size, null);
 		
+
 	}
 	
 	public void paint(Graphics g) {

@@ -40,7 +40,7 @@ public class ImportText {
 				URL urlText = new URL(url, "../../data/language/"+langue+"/"+document+".txt");
 				ips1 = urlText.openStream();
 				//ips1 = new FileInputStream(urlText.toString());
-				ipsr1 = new InputStreamReader(ips1,"UTF-8");
+				ipsr1 = new InputStreamReader(ips1,"UTF8");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (UnsupportedEncodingException e) {

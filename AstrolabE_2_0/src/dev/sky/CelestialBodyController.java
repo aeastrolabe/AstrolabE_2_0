@@ -13,12 +13,16 @@ public abstract class CelestialBodyController {
 	protected boolean displayed;
 	
 	public static AstrolabeController astrolabeController;
+	
+	private static StaticCelestialBodyViewListener listener = new StaticCelestialBodyViewListener();
 
 	
 	public CelestialBodyController(String name) {
 		model = new CelestialBodyModel(name);
 		view = new CelestialBodyView(this);
-		view.addMouseListener(new CelestialBodyViewListener(this));
+		
+		view.addMouseListener(listener);
+		StaticCelestialBodyViewListener.setAstrolabeController(astrolabeController);
 		
 		displayed = true;
 	}

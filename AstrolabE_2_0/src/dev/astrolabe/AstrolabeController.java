@@ -138,6 +138,11 @@ public class AstrolabeController extends Controller {
 		drawingModel.scaleAstrolabeBy(r);
 	}
 	
+	@SuppressWarnings("unused")
+	public void scaleAstrolabeByRelativeTo(double r, Point p) {
+		drawingModel.scaleAstrolabeBy(r);
+	}
+	
 	public double getAstrolabeScale() {
 		return drawingModel.getAstrolabeScale();
 	}

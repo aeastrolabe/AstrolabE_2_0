@@ -6,18 +6,18 @@ import java.awt.event.MouseListener;
 
 import dev.astrolabe.AstrolabeController;
 
-@Deprecated
-public class CelestialBodyViewListener implements MouseListener {
+public class StaticCelestialBodyViewListener implements MouseListener {
 
-	private static AstrolabeController astrolabeController;
-	private CelestialBodyController celest;
 	
-	public CelestialBodyViewListener(CelestialBodyController o) {
-		celest=o;
+	private static AstrolabeController astrolabeController = null;
+	private static CelestialBodyController celest = null;
+	
+	public StaticCelestialBodyViewListener() {
 	}
 
 	
 	public void mouseClicked(MouseEvent e) {
+		setupListener(e);
 		System.out.println(astrolabeController.getLocalisationModel().getLatitude());
 		// TODO
 //		astrolabeController.setInformation(celest);
@@ -29,6 +29,7 @@ public class CelestialBodyViewListener implements MouseListener {
 	}
 
 	public void mouseEntered(MouseEvent e) {
+		setupListener(e);
 		// TODO for a later version : closer pointing for close stars
 		//if (closeToCenter(e.getPoint())) {
 			celest.getView().sizeCoeff = 1.5;
@@ -50,7 +51,9 @@ public class CelestialBodyViewListener implements MouseListener {
 	}
 	
 	public static void setAstrolabeController(AstrolabeController controller) {
-		astrolabeController = controller;
+		if (astrolabeController == null) {
+			astrolabeController = controller;
+		}
 	}
 	
 	@SuppressWarnings("unused")
@@ -59,4 +62,8 @@ public class CelestialBodyViewListener implements MouseListener {
 				<= celest.getView().size*celest.getView().size/4;
 	}
 
+	private void setupListener(MouseEvent e) {
+		celest = ((CelestialBodyView) e.getSource()).controller;
+	}
+	
 }
