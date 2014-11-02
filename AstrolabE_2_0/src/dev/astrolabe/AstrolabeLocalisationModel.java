@@ -21,16 +21,17 @@ public class AstrolabeLocalisationModel {
 		return hemisphere;
 	}
 
-	/**
-	 * @param hemisphere the hemisphere to set
-	 */
-	public void setHemisphere(int hemisphere) {
-		this.hemisphere = hemisphere;
-	}
-
+//	/**
+//	 * @param hemisphere the hemisphere to set
+//	 */
+//	public void setHemisphere(int hemisphere) {
+//		this.hemisphere = hemisphere;
+//	}
+//
 	/**
 	 * @return the latitude
 	 */
+	
 	public double getLatitude() {
 		return latitude;
 	}
@@ -40,6 +41,7 @@ public class AstrolabeLocalisationModel {
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+		hemisphere = (int) Math.signum(latitude);
 	}
 
 	/**

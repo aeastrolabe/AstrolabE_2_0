@@ -33,9 +33,26 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 
 	public BufferedImage planetImage;
 	
+	public Planet(String name) {
+		super(name);
+		Nb = 0;
+		Na = 0;
+		ib = 0;
+		ia = 0;
+		wb = 0;
+		wa = 0;
+		ab = 0;
+		aa = 0;
+		eb = 0;
+		ea = 0;
+		Mb = 0;
+		Ma = 0;
+		view.image = null;
+	}
 	
 	public Planet(String name, double[] planet_data) {
 		super(name);
+		
 		Nb = planet_data[0];
 		Na = planet_data[1];
 		ib = planet_data[2];
@@ -48,7 +65,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		ea = planet_data[9];
 		Mb = planet_data[10];
 		Ma = planet_data[11];
-		
+			
 		view.image = ImportImage.read("planets/"+name.toLowerCase()+".png");
 	}	
 	
@@ -122,7 +139,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 			
 			setSphericalCoordinates(planetList);
 			
-			System.out.println("**Importation des planÃ¨tes terminÃ©e**");
+			System.out.println("**Importation des planètes terminée**");
 			
 		} catch (IOException e) {
 			e.printStackTrace();

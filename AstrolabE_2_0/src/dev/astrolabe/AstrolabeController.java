@@ -14,7 +14,7 @@ public class AstrolabeController extends Controller {
 	AstrolabeMainController astrolabeMainController;
 	
 	private AstrolabeView view;
-	private AstrolabeDrawingModel drawingModel;
+	private AstrolabeStateModel drawingModel;
 	private AstrolabeHomeplanetModel homeplanetModel;
 	private AstrolabeLocalisationModel localisationModel;
 	
@@ -26,7 +26,7 @@ public class AstrolabeController extends Controller {
 	public AstrolabeController(AstrolabeMainController astrolabeMainController) {
 		this.astrolabeMainController = astrolabeMainController;
 		
-		drawingModel = new AstrolabeDrawingModel();
+		drawingModel = new AstrolabeStateModel();
 		homeplanetModel = new AstrolabeHomeplanetModel();
 		localisationModel = new AstrolabeLocalisationModel();
 		
@@ -118,7 +118,7 @@ public class AstrolabeController extends Controller {
 		return (Point) drawingModel.getAstrolabeCenter().clone();
 	}
 
-	public AstrolabeDrawingModel getDrawingModel() {
+	public AstrolabeStateModel getStateModel() {
 		return drawingModel;
 	}
 	
@@ -160,7 +160,6 @@ public class AstrolabeController extends Controller {
 	}
 	
 	public void setLatitude(double l) {
-		localisationModel.setHemisphere((int) Math.signum(l));
 		localisationModel.setLatitude(Math.abs(l));
 	}
 	

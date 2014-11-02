@@ -132,10 +132,10 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() > 0) {
-			controller.scaleAstrolabeBy(AstrolabeDrawingModel.SCALING_RATE);
+			controller.scaleAstrolabeBy(AstrolabeStateModel.SCALING_RATE);
 		}
 		else {
-			controller.scaleAstrolabeBy(1/AstrolabeDrawingModel.SCALING_RATE);
+			controller.scaleAstrolabeBy(1/AstrolabeStateModel.SCALING_RATE);
 		}
 		controller.getView().repaint();
 	}

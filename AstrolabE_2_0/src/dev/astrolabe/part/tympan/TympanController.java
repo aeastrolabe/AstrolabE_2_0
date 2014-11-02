@@ -44,7 +44,7 @@ public class TympanController extends AstrolabePartController {
 	}
 	
 	public void FillTympanBackground(Graphics2D g) {
-		double r = getOuterTropicRadius() +  astrolabeController.getDrawingModel().TYMPAN_PADDING + astrolabeController.getDrawingModel().LIMBE_PADDING;
+		double r = getOuterTropicRadius() +  astrolabeController.getStateModel().TYMPAN_PADDING + astrolabeController.getStateModel().LIMBE_PADDING;
 		g.setColor(AstrolabeStyleModel.getSelected().getTympanColor());
 		g.fill(new Ellipse2D.Double(-r,-r,2*r,2*r));
 	}
@@ -90,7 +90,7 @@ public class TympanController extends AstrolabePartController {
 				g.setColor(Color.darkGray);
 				g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.ULTRA_THIN,AstrolabeStroke.SOLID));
 			}
-			double r = getOuterTropicRadius() + astrolabeController.getDrawingModel().TYMPAN_PADDING;
+			double r = getOuterTropicRadius() + astrolabeController.getStateModel().TYMPAN_PADDING;
 			g.setClip(new Ellipse2D.Double(-r, -r, 2*r, 2*r));
 			drawCircle(g, 0, -model.getC_h()[i], model.getR_h()[i]);
 		}
@@ -98,7 +98,7 @@ public class TympanController extends AstrolabePartController {
 	}
 	
 	public void drawLigneCrepusculaire(Graphics2D g) {
-		double r = getOuterTropicRadius() + astrolabeController.getDrawingModel().TYMPAN_PADDING;
+		double r = getOuterTropicRadius() + astrolabeController.getStateModel().TYMPAN_PADDING;
 		Ellipse2D c = new Ellipse2D.Double(-r, -r, 2*r, 2*r);
 		g.setClip(c);
 		
@@ -124,14 +124,14 @@ public class TympanController extends AstrolabePartController {
         p1.append(c, false);
         g.clip(p1);
 		
-		r = getOuterTropicRadius() + astrolabeController.getDrawingModel().TYMPAN_PADDING;
+		r = getOuterTropicRadius() + astrolabeController.getStateModel().TYMPAN_PADDING;
 		Ellipse2D c2 = new Ellipse2D.Double(-r, -r, 2*r, 2*r);
 		g.clip(c2);
 		
 		g.setColor(Color.black);
 		g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.THIN,AstrolabeStroke.SOLID));
 		
-		drawLine(g, 0, -model.getC_h()[0]+model.getR_h()[0], 0, -getOuterTropicRadius()-astrolabeController.getDrawingModel().TYMPAN_PADDING);
+		drawLine(g, 0, -model.getC_h()[0]+model.getR_h()[0], 0, -getOuterTropicRadius()-astrolabeController.getStateModel().TYMPAN_PADDING);
 		
 		for (int i=1;i<model.N_AZIMUTH;i++) {
 			int iazimuth = (i*90)/model.N_AZIMUTH;
@@ -153,6 +153,6 @@ public class TympanController extends AstrolabePartController {
 	public void drawLimbe(Graphics2D g) {
 		g.setColor(Color.black);
 		g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.THIN, AstrolabeStroke.SOLID));
-		drawCircle(g, 0, 0, getOuterTropicRadius() + astrolabeController.getDrawingModel().TYMPAN_PADDING);
+		drawCircle(g, 0, 0, getOuterTropicRadius() + astrolabeController.getStateModel().TYMPAN_PADDING);
 	}
 }

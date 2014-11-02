@@ -1,5 +1,7 @@
 package dev;
 
+import io.ImportCelestialData;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.KeyboardFocusManager;
@@ -12,7 +14,6 @@ import dev.astrolabe.AstrolabeMainController;
 import dev.menubar.AppMenuBar;
 import dev.options.KeyboardListener;
 import dev.sky.CelestialBodyMasterController;
-import dev.sky.Constellation;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -41,7 +42,7 @@ public class MainFrame extends JFrame {
 		astrolabeMainController = new AstrolabeMainController();
 		
 		CelestialBodyMasterController.setAstrolabeController(astrolabeMainController.getAstrolabeController());
-		Constellation.getStars();
+		ImportCelestialData.getStars();
 		
 		initMenuBar();
 		

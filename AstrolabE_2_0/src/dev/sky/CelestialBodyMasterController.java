@@ -9,6 +9,7 @@ import dev.astrolabe.AstrolabeController;
 
 public class CelestialBodyMasterController {
 	
+	//TODO remove static tag
 	private static CelestialBodyController selected;
 
 	
@@ -22,7 +23,7 @@ public class CelestialBodyMasterController {
 	
 	public static void setAstrolabeController(AstrolabeController controller) {
 		CelestialBodyController.setAstrolabeController(controller);
-		CelestialBodyViewListener.setAstrolabeController(controller);
+//		CelestialBodyViewListener.setAstrolabeController(controller);
 	}
 	
 	//TODO correct this

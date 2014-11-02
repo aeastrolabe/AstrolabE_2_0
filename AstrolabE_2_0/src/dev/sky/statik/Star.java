@@ -28,6 +28,14 @@ public class Star extends StaticCelestialBody {
 			view.image = ImportImage.read("stars/starD.png");
 		}
 	}
+	
+	public Star(String name) {
+		super(name,"",0,0,0);
+		this.id = 0;
+		this.misc_info = "";
+		this.colorCode = 'a';
+		view.image = null;
+	}
 
 	//METHODES
 	
