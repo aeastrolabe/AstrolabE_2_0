@@ -1,8 +1,8 @@
 package dev.sky.statik;
-import io.ImportImage;
 
 import java.util.ListIterator;
 
+import dev.io.ImportImage;
 import dev.sky.CelestialBodyController;
 import dev.sky.Constellation;
 
@@ -95,7 +95,7 @@ public class Star extends StaticCelestialBody {
 			ListIterator<CelestialBodyController> iters = c.getStarList().listIterator();
 			while (iters.hasNext()){
 				Star o = (Star) iters.next();
-				astrolabeController.getView().remove(o.view);
+				getAstrolabeController().getView().remove(o.view);
 			}
 		}
 	}

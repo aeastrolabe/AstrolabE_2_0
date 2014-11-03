@@ -1,5 +1,7 @@
 package dev.mission;
 
+import dev.astrolabe.AstrolabeStateModel;
+
 public class SunDisplayedStep extends Step {
 
 	private boolean objective;
@@ -15,5 +17,10 @@ public class SunDisplayedStep extends Step {
 	
 	public String toString() {
 		return this.getClass().getSimpleName() + " : " + "show sun : " + objective;
+	}
+
+	@Override
+	public boolean success(AstrolabeStateModel stateModel) {
+		return completed || stateModel.isSunDisplayed();
 	}
 }

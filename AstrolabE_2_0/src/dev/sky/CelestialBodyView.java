@@ -53,34 +53,34 @@ public class CelestialBodyView extends JPanel  {
 	}
 	
 	public void setCoordinates() {
-		double imageWidth = 2* CelestialBodyController.astrolabeController.getAstrolabeRadius();
-		double delta2 = CelestialBodyController.astrolabeController.getLocalisationModel().getHemisphere() >= 0 ? controller.model.getDelta() : controller.model.getDelta() ;
-		CelestialBodyController.astrolabeController.getHomeplanetModel();
+		double imageWidth = 2* CelestialBodyController.getAstrolabeController().getAstrolabeRadius();
+		double delta2 = CelestialBodyController.getAstrolabeController().getLocalisationModel().getHemisphere() >= 0 ? controller.model.getDelta() : controller.model.getDelta() ;
+		CelestialBodyController.getAstrolabeController().getHomeplanetModel();
 		double rho =  AstrolabeHomeplanetModel.DEFAULT_EQUATOR_RADIUS*Math.tan(deg2rad((90. - delta2)/2.))
-				/imageWidth*CelestialBodyController.astrolabeController.getAstrolabeRadius();
+				/imageWidth*CelestialBodyController.getAstrolabeController().getAstrolabeRadius();
 		abscissa = rho*Math.sin(deg2rad(controller.model.getAlpha()));
 		ordinate = rho*Math.cos(deg2rad(controller.model.getAlpha()));
 	}
 	
 	public void draw(Graphics2D g) {
 		setCoordinates();
-		double zoom = CelestialBodyController.astrolabeController.getAstrolabeScale();
+		double zoom = CelestialBodyController.getAstrolabeController().getAstrolabeScale();
 		double x1 = abscissa*zoom;
 		double y1 = ordinate*zoom;
-		double thetaActuel = CelestialBodyController.astrolabeController.getReteRotation();
+		double thetaActuel = CelestialBodyController.getAstrolabeController().getReteRotation();
 //		double thetaActuel = CelestialBodyController.astrolabeController.getThetaAraignee()+CelestialBodyController.astrolabeController.getThetaAraigneeTotal();
 		double x = x1*Math.cos(thetaActuel)-y1*Math.sin(thetaActuel);
 		double y = x1*Math.sin(thetaActuel)+y1*Math.cos(thetaActuel);
 
-		x+=CelestialBodyController.astrolabeController.getAstrolabeCenter().getX();
-		y+=CelestialBodyController.astrolabeController.getAstrolabeCenter().getY();
+		x+=CelestialBodyController.getAstrolabeController().getAstrolabeCenter().getX();
+		y+=CelestialBodyController.getAstrolabeController().getAstrolabeCenter().getY();
 		size =  (int) ( getDiameter()*sizeCoeff*
 				Math.sqrt
-				(CelestialBodyController.astrolabeController.getAstrolabeScale()));
+				(CelestialBodyController.getAstrolabeController().getAstrolabeScale()));
 		setBounds((int) x-size/2, (int) y-size/2, size, size);
 		repaint();
-		CelestialBodyController.astrolabeController.getView().add(this,0);
-		CelestialBodyController.astrolabeController.getView().repaint();
+		CelestialBodyController.getAstrolabeController().getView().add(this,0);
+		CelestialBodyController.getAstrolabeController().getView().repaint();
 	}
 	
 	public void drawCelestialBody(Graphics2D g) {

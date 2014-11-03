@@ -2,6 +2,8 @@ package dev.astrolabe;
 
 import java.awt.Point;
 
+import dev.sky.CelestialBodyController;
+
 public class AstrolabeStateModel {
 	
 	/*
@@ -22,7 +24,7 @@ public class AstrolabeStateModel {
 	
 	private boolean sunDisplayed = false;
 	
-	private String selectedCelestialBodyName = "";
+	private CelestialBodyController selectedCelestialBody;
 	
 	public Point getAstrolabeCenter() {
 		return (Point) astrolabeCenter.clone();
@@ -77,15 +79,15 @@ public class AstrolabeStateModel {
 	/**
 	 * @return the selectedCelestialBody
 	 */
-	public String getSelectedCelestialBodyName() {
-		return selectedCelestialBodyName;
+	public CelestialBodyController getSelectedCelestialBody() {
+		return selectedCelestialBody;
 	}
 
 	/**
 	 * @param selectedCelestialBody the selectedCelestialBody to set
 	 */
-	public void setSelectedCelestialBodyName(String selectedCelestialBodyName) {
-		this.selectedCelestialBodyName = selectedCelestialBodyName;
+	public void setSelectedCelestialBody(CelestialBodyController selectedCelestialBody) {
+		this.selectedCelestialBody = selectedCelestialBody;
 	}
 
 }

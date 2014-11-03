@@ -4,15 +4,13 @@ import dev.astrolabe.AstrolabeController;
 
 public abstract class CelestialBodyController {
 	
-	protected static CelestialBodyMasterController celestialBodyMasterController = new CelestialBodyMasterController();
-	
 	protected CelestialBodyView view;
 	protected CelestialBodyModel model;
 	
 	protected boolean surbrillance = false;
 	protected boolean displayed;
 	
-	public static AstrolabeController astrolabeController;
+	private static AstrolabeController astrolabeController;
 	
 	private static StaticCelestialBodyViewListener listener = new StaticCelestialBodyViewListener();
 
@@ -22,7 +20,9 @@ public abstract class CelestialBodyController {
 		view = new CelestialBodyView(this);
 		
 		view.addMouseListener(listener);
-		StaticCelestialBodyViewListener.setAstrolabeController(astrolabeController);
+		
+		//this is called only once in practice
+		StaticCelestialBodyViewListener.setAstrolabeController(getAstrolabeController());
 		
 		displayed = true;
 	}
@@ -76,13 +76,10 @@ public abstract class CelestialBodyController {
 	public static double rad2deg(double x) {
 		return x*180./Math.PI;
 	}
-	
-	public static void setAstrolabeController(AstrolabeController controller) {
-		astrolabeController = controller;
-	}
+
 	
 	public boolean isVisibleFromLocation() {
-		return model.getDelta()*astrolabeController.getLocalisationModel().getHemisphere()>=-astrolabeController.getHomeplanetModel().getEpsilon();
+		return model.getDelta()*getAstrolabeController().getLocalisationModel().getHemisphere()>=-getAstrolabeController().getHomeplanetModel().getEpsilon();
 	}
 	
 	public boolean condition1() {
@@ -92,8 +89,20 @@ public abstract class CelestialBodyController {
 	}
 	
 	public boolean condition2() {
-		return astrolabeController.getLocalisationModel().getHemisphere()*model.getDelta() >=
-				astrolabeController.getLocalisationModel().getHemisphere()*
-				(astrolabeController.getLocalisationModel().getLatitude()-astrolabeController.getLocalisationModel().getHemisphere()*90);
+		return getAstrolabeController().getLocalisationModel().getHemisphere()*model.getDelta() >=
+				getAstrolabeController().getLocalisationModel().getHemisphere()*
+				(getAstrolabeController().getLocalisationModel().getLatitude()-getAstrolabeController().getLocalisationModel().getHemisphere()*90);
+	}
+
+	/**
+	 * @return the astrolabeController
+	 */
+	public static AstrolabeController getAstrolabeController() {
+		return astrolabeController;
+	}
+	
+	
+	public static void setAstrolabeController(AstrolabeController controller) {
+		astrolabeController = controller;
 	}
 }

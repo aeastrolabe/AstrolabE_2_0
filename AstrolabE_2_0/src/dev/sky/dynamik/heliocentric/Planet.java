@@ -1,7 +1,5 @@
 package dev.sky.dynamik.heliocentric;
 
-import io.ImportData;
-import io.ImportImage;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -16,6 +14,8 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import dev.astrolabe.AstrolabeHomeplanetModel;
+import dev.io.ImportData;
+import dev.io.ImportImage;
 import dev.sky.CelestialBodyController;
 import dev.utils.JulianDate;
 

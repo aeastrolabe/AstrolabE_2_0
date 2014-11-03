@@ -1,6 +1,5 @@
 package dev.sky.dynamik.geocentric;
 
-import io.ImportData;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,6 +10,7 @@ import java.io.Reader;
 import java.net.URL;
 import java.util.Arrays;
 
+import dev.io.ImportData;
 import dev.sky.dynamik.heliocentric.HeliocentricDynamicCelestialBody;
 
 

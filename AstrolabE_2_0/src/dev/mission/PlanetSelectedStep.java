@@ -8,6 +8,9 @@ public class PlanetSelectedStep extends Step {
 	Planet planetToSelect;
 
 	public PlanetSelectedStep(Planet p) {
+		if (p == null) {
+			throw new Error("Null planet declared in step");
+		}
 		planetToSelect = p;
 	}
 	
@@ -16,6 +19,11 @@ public class PlanetSelectedStep extends Step {
 	}
 	
 	public boolean isDesiredPlanetSelected(AstrolabeStateModel astrolabeStateModel) {
-		return planetToSelect.getModel().getName().equals(astrolabeStateModel.getSelectedCelestialBodyName());
+		return planetToSelect.getModel().getName().equals(astrolabeStateModel.getSelectedCelestialBody().getModel().getName());
+	}
+
+	@Override
+	public boolean success(AstrolabeStateModel stateModel) {
+		return completed || planetToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getModel().getName());
 	}
 }

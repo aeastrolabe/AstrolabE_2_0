@@ -33,6 +33,6 @@ public class AstrolabeView extends JPanel {
 		controller.updateBackgroundColor();
 		controller.background.repaint();
 		controller.getTympanController().getView().repaint();
-		controller.reteController.getView().repaint();
+		controller.getReteController().getView().repaint();
 	}
 }

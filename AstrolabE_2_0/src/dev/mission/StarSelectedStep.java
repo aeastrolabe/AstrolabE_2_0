@@ -1,17 +1,26 @@
 package dev.mission;
 
+import dev.astrolabe.AstrolabeStateModel;
 import dev.sky.statik.Star;
 
 public class StarSelectedStep extends Step {
 
-	Star starToSelect;
+	public Star starToSelect;
 	
 	public StarSelectedStep(Star s) {
+		if (s == null) {
+			throw new Error("Null star declared in step");
+		}
 		starToSelect = s;
 	}
 	
 	public String toString() {
 		return this.getClass().getSimpleName() + " : " + starToSelect.getModel().getName();
+	}
+	
+	@Override
+	public boolean success(AstrolabeStateModel stateModel) {
+		return completed || starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getModel().getName());
 	}
 	
 }

@@ -6,7 +6,6 @@ import java.util.ListIterator;
 import dev.astrolabe.AstrolabeController;
 import dev.astrolabe.AstrolabeStyleModel;
 import dev.astrolabe.part.AstrolabePartController;
-import dev.sky.CelestialBodyMasterController;
 import dev.sky.Constellation;
 import dev.utils.AstrolabeStroke;
 
@@ -40,7 +39,7 @@ public class ReteController extends AstrolabePartController {
 		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
 		while (iterc.hasNext()){
 			Constellation c = iterc.next();
-			CelestialBodyMasterController.drawAll(g, astrolabeController, c.getStarList());
+			astrolabeController.drawStars(g,c);
 		}
 	}
 	

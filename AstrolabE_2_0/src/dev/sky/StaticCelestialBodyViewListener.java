@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import dev.astrolabe.AstrolabeController;
+import dev.mission.StarSelectedStep;
 
 public class StaticCelestialBodyViewListener implements MouseListener {
 
@@ -13,12 +14,18 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	private static CelestialBodyController celest = null;
 	
 	public StaticCelestialBodyViewListener() {
+	
 	}
 
 	
 	public void mouseClicked(MouseEvent e) {
 		setupListener(e);
+		astrolabeController.getStateModel().setSelectedCelestialBody(celest);
 		System.out.println(astrolabeController.getLocalisationModel().getLatitude());
+		System.out.println("#"+astrolabeController.getStateModel().getSelectedCelestialBody().getModel().getName()+"#");
+		System.out.println("#"+((StarSelectedStep) (astrolabeController.getAstrolabeMainController().test_mission.getOrderedSteps().getFirst())).starToSelect.getModel().getName()+"#");
+		System.out.println(astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel()));
+
 		// TODO
 //		astrolabeController.setInformation(celest);
 //		CelestialBodyMasterController.setSelected(celest);
