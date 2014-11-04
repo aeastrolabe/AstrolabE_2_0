@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import dev.mission.Mission;
 import dev.mission.StarSelectedStep;
 import dev.mission.SunDisplayedStep;
+import dev.mission.ui.MissionController;
 import dev.options.LatitudeSliderController;
 import dev.sky.statik.Star;
 import dev.struct.Controller;
@@ -19,14 +20,14 @@ public class AstrolabeMainController extends Controller {
 	
 	private AstrolabeController astrolabeController;
 	
+	private MissionController missionController;
+	
 	public Mission test_mission;
 	
 	
 	JPanel top = new JPanel();
 	JPanel side = new JPanel();
 	JPanel astrolabe = new JPanel();
-	boolean buttonBarHidden = false;
-
 	
 	public AstrolabeMainController() {
 		view = new AstrolabeMainView(this);
@@ -36,6 +37,8 @@ public class AstrolabeMainController extends Controller {
 		test_mission.addOrderedStep(new StarSelectedStep(new Star("Sirius")));
 		test_mission.addOrderedStep(new SunDisplayedStep(true));
 		test_mission.addUnorderedStep(new StarSelectedStep(new Star("Death Star")));
+		
+		missionController = new MissionController(test_mission);
 		
 		createGUI();
 	}
@@ -55,6 +58,8 @@ public class AstrolabeMainController extends Controller {
 		
 		LatitudeSliderController ltc = new LatitudeSliderController(this);
 		top.add(ltc.getView());
+		
+		side.add(missionController.getView());
 		
 		view.add(astrolabe,BorderLayout.CENTER);
 		view.add(top, BorderLayout.NORTH);

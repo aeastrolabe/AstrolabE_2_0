@@ -20,9 +20,9 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		setupListener(e);
-		astrolabeController.getStateModel().setSelectedCelestialBody(celest);
+		astrolabeController.getStateModel().setSelectedCelestialBody(celest.getModel());
 		System.out.println(astrolabeController.getLocalisationModel().getLatitude());
-		System.out.println("#"+astrolabeController.getStateModel().getSelectedCelestialBody().getModel().getName()+"#");
+		System.out.println("#"+astrolabeController.getStateModel().getSelectedCelestialBody().getName()+"#");
 		System.out.println("#"+((StarSelectedStep) (astrolabeController.getAstrolabeMainController().test_mission.getOrderedSteps().getFirst())).starToSelect.getModel().getName()+"#");
 		System.out.println(astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel()));
 

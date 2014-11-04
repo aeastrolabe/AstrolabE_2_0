@@ -10,6 +10,7 @@ import dev.astrolabe.part.rete.ReteController;
 import dev.astrolabe.part.tympan.TympanController;
 import dev.sky.CelestialBodyController;
 import dev.sky.CelestialBodyHandler;
+import dev.sky.CelestialBodyModel;
 import dev.sky.Constellation;
 import dev.struct.Controller;
 
@@ -188,12 +189,12 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	}
 
 	@Override
-	public CelestialBodyController getSelected() {
+	public CelestialBodyModel getSelected() {
 		return stateModel.getSelectedCelestialBody();
 	}
 
 	@Override
-	public void setSelected(CelestialBodyController celestialBody) {
+	public void setSelected(CelestialBodyModel celestialBody) {
 		stateModel.setSelectedCelestialBody(celestialBody);
 	}
 

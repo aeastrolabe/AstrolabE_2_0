@@ -8,6 +8,7 @@ public class SunDisplayedStep extends Step {
 	
 	public SunDisplayedStep(boolean objective) {
 		this.objective = objective;
+		instruction = "Display the sun";
 	}
 	
 	public boolean toBeShown() {

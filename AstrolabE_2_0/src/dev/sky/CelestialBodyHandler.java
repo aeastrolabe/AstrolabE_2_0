@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 //TODO change as an interface
 public interface CelestialBodyHandler {
 	
-	public CelestialBodyController getSelected();
+	public CelestialBodyModel getSelected();
 	
-	public void setSelected(CelestialBodyController celestialBody); 
+	public void setSelected(CelestialBodyModel celestialBody); 
 	
 	public void drawStars(Graphics2D g, Constellation c);
 	

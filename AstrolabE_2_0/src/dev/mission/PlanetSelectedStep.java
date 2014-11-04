@@ -12,6 +12,7 @@ public class PlanetSelectedStep extends Step {
 			throw new Error("Null planet declared in step");
 		}
 		planetToSelect = p;
+		instruction = "Select planet " + p.getModel().getName();
 	}
 	
 	public String toString() {
@@ -19,11 +20,11 @@ public class PlanetSelectedStep extends Step {
 	}
 	
 	public boolean isDesiredPlanetSelected(AstrolabeStateModel astrolabeStateModel) {
-		return planetToSelect.getModel().getName().equals(astrolabeStateModel.getSelectedCelestialBody().getModel().getName());
+		return planetToSelect.getModel().getName().equals(astrolabeStateModel.getSelectedCelestialBody().getName());
 	}
 
 	@Override
 	public boolean success(AstrolabeStateModel stateModel) {
-		return completed || planetToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getModel().getName());
+		return completed || planetToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName());
 	}
 }

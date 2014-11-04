@@ -11,10 +11,27 @@ public class Mission {
 
 	private LinkedList<Step> orderedSteps;
 	private LinkedList<Step> unorderedSteps;
+	
+	private int orderedStepsCount;
+	private int unorderedStepsCount;
 		
 	public Mission() {
 		orderedSteps = new LinkedList<>();
 		unorderedSteps = new LinkedList<>();
+	}
+	
+	/**
+	 * @return the nOrderedSteps
+	 */
+	public int getOrderedStepsCount() {
+		return orderedStepsCount;
+	}
+
+	/**
+	 * @return the nUnorderedSteps
+	 */
+	public int getUnorderedStepsCount() {
+		return unorderedStepsCount;
 	}
 	
 	public LinkedList<Step> getOrderedSteps() {
@@ -27,10 +44,12 @@ public class Mission {
 	
 	public void addOrderedStep(Step s) {
 		orderedSteps.add(s);
+		orderedStepsCount++;
 	}
 	
 	public void addUnorderedStep(Step s) {
 		unorderedSteps.add(s);
+		unorderedStepsCount++;
 	}
 	
 	public int getCurrentStep() {
@@ -151,4 +170,6 @@ public class Mission {
 		
 		System.out.println(m);
 	}
+
+
 }

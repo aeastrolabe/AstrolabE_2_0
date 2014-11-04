@@ -12,6 +12,7 @@ public class StarSelectedStep extends Step {
 			throw new Error("Null star declared in step");
 		}
 		starToSelect = s;
+		instruction = "Select star " + s.getModel().getName();
 	}
 	
 	public String toString() {
@@ -20,7 +21,7 @@ public class StarSelectedStep extends Step {
 	
 	@Override
 	public boolean success(AstrolabeStateModel stateModel) {
-		return completed || starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getModel().getName());
+		return completed || starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName());
 	}
 	
 }

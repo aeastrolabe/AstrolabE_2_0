@@ -5,6 +5,8 @@ import dev.astrolabe.AstrolabeStateModel;
 public abstract class Step {
 	
 	protected boolean completed = false;
+	
+	protected String instruction = "DEFAULT INSTRUCTION";
 
 	public static String getClassName(String s) {
 		String[] t = s.split(".");
@@ -25,5 +27,13 @@ public abstract class Step {
 	 */
 	public void setCompleted() {
 		this.completed = true;
+	}
+	
+	public String getInstruction() {
+		return instruction;
+	}
+	
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
 	}
 }
