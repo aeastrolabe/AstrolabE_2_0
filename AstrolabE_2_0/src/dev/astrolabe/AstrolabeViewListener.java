@@ -34,7 +34,8 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO
+		controller.setSelected(null);
+		controller.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
 	}
 
 	@Override

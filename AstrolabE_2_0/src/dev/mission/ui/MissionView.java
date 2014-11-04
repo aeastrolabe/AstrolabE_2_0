@@ -9,16 +9,20 @@ import dev.struct.View;
 @SuppressWarnings("serial")
 public class MissionView extends View {
 	
+	private MissionController controller;
+	
 	private JLabel[] ordered;
 	private JLabel[] unordered;
 	
-	public MissionView() {
+	public MissionView(MissionController controller) {
 		super();
+		this.controller = controller;
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		super.paintComponents(g);
+		controller.updateLabels();
 	}
 
 	/**

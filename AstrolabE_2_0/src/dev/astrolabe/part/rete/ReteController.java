@@ -36,11 +36,16 @@ public class ReteController extends AstrolabePartController {
 	}
 	
 	public void drawStars(Graphics2D g) {
+		//TODO I don't like this...
 		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
 		while (iterc.hasNext()){
 			Constellation c = iterc.next();
 			astrolabeController.drawStars(g,c);
 		}
+	}
+	
+	public void drawPlanets(Graphics2D g) {
+		astrolabeController.drawPlanets(g);
 	}
 	
 }

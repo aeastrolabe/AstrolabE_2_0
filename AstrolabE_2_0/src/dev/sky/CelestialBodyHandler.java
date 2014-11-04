@@ -11,7 +11,7 @@ public interface CelestialBodyHandler {
 	
 	public void drawStars(Graphics2D g, Constellation c);
 	
-	
+	void drawPlanets(Graphics2D g);
 	
 //	private CelestialBodyController selected;
 //

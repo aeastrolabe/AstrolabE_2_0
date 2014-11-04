@@ -6,6 +6,8 @@ public class CelestialBodyModel {
 	protected double magnitude;
 	private double alpha;
 	private double delta;
+	private String constellation = "Not available";
+	private String type = "Unknown";
 	
 	public CelestialBodyModel(String name) {
 		this.name = name;
@@ -65,6 +67,34 @@ public class CelestialBodyModel {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the constellation
+	 */
+	public String getConstellation() {
+		return constellation;
+	}
+
+	/**
+	 * @param constellation the constellation to set
+	 */
+	public void setConstellation(String constellation) {
+		this.constellation = constellation;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

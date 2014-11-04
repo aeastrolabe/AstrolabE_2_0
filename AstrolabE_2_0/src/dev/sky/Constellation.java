@@ -58,7 +58,7 @@ public class Constellation  {
 	
 	
 	public static void addStar(Star s) {
-		String c = s.getConstellationName();
+		String c = s.getModel().getConstellation();
 		ListIterator<Constellation> iter = constellationList.listIterator();
 		while (iter.hasNext()) {
 			Constellation cons = iter.next();
@@ -66,7 +66,7 @@ public class Constellation  {
 			if (c.equals(cons.abrege)) {
 				cons.addStarToThis(s);
 				if (!s.model.getName().contains("#no_name#")) {
-					//TODO what to do here ?
+					//TODO what to do here ? does this still happen ?
 				}
 				break;
 			}

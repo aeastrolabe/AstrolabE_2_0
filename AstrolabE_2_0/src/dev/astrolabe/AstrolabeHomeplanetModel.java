@@ -1,5 +1,8 @@
 package dev.astrolabe;
 
+import java.util.Date;
+import java.util.Calendar;
+
 public class AstrolabeHomeplanetModel {
 	
 	public final static double DEFAULT_EQUATOR_RADIUS = 200;
@@ -9,16 +12,20 @@ public class AstrolabeHomeplanetModel {
 	 * Calendar in planet days with common origin the ***** TODO !!!
 	 */
 	
-	private static int year;
+	private static int year = 0;
 	
-	private static int month;
+	private static int month = Calendar.MONTH;
 	
-	private static int day;
+	private static int day = Calendar.DAY_OF_MONTH;
 	
 	/**
 	 * @return the year
 	 */
 	public static int getYear() {
+		Date date = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		year = cal.get(Calendar.YEAR);
 		return year;
 	}
 
@@ -33,6 +40,10 @@ public class AstrolabeHomeplanetModel {
 	 * @return the month
 	 */
 	public static int getMonth() {
+		Date date = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		month = cal.get(Calendar.MONTH)+1;
 		return month;
 	}
 
@@ -47,6 +58,10 @@ public class AstrolabeHomeplanetModel {
 	 * @return the day
 	 */
 	public static int getDay() {
+		Date date = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		day = cal.get(Calendar.DAY_OF_MONTH);
 		return day;
 	}
 

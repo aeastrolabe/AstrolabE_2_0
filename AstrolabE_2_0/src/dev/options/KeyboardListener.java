@@ -15,14 +15,14 @@ public class KeyboardListener implements KeyEventDispatcher {
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent e) {
-		switch (e.getKeyChar()) {
-			case 'r':
-				mainFrame.getAppMenuBar().getEditMenu().getTransformResetMenu().resetAll();
-				break;
-
-			default:
-				break;
-		}
+//		switch (e.getKeyChar()) {
+//			case 'r':
+//				mainFrame.getAppMenuBar().getEditMenu().getTransformResetMenu().resetAll();
+//				break;
+//
+//			default:
+//				break;
+//		}
 		return false;
 	}
 

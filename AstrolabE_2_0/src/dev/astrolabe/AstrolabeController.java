@@ -12,6 +12,7 @@ import dev.sky.CelestialBodyController;
 import dev.sky.CelestialBodyHandler;
 import dev.sky.CelestialBodyModel;
 import dev.sky.Constellation;
+import dev.sky.dynamik.heliocentric.Planet;
 import dev.struct.Controller;
 
 public class AstrolabeController extends Controller implements CelestialBodyHandler {
@@ -221,5 +222,16 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	 */
 	public void setAstrolabeMainController(AstrolabeMainController astrolabeMainController) {
 		this.astrolabeMainController = astrolabeMainController;
+	}
+
+	@Override
+	public void drawPlanets(Graphics2D g) {
+		CelestialBodyController s;
+		for(Object o : Planet.planetList.toArray()) {
+			s = (CelestialBodyController) o;
+			if (s.isDisplayed()) {
+				s.getView().draw(g);
+			}
+		}
 	}
 }

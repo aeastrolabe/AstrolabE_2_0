@@ -2,21 +2,15 @@ package dev.sky.dynamik.heliocentric;
 
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 import dev.astrolabe.AstrolabeHomeplanetModel;
-import dev.io.ImportData;
 import dev.io.ImportImage;
 import dev.sky.CelestialBodyController;
+import dev.sky.io.ImportCelestialData;
 import dev.utils.JulianDate;
 
 public class Planet extends HeliocentricDynamicCelestialBody {
@@ -35,6 +29,8 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 	
 	public Planet(String name) {
 		super(name);
+		model.setConstellation("Not available"); //TODO do we want to do something with this ?
+		model.setType("Planet");
 		Nb = 0;
 		Na = 0;
 		ib = 0;
@@ -52,7 +48,8 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 	
 	public Planet(String name, double[] planet_data) {
 		super(name);
-		
+		model.setConstellation("Not available"); //TODO do we want to do something with this ?
+		model.setType("Planet");
 		Nb = planet_data[0];
 		Na = planet_data[1];
 		ib = planet_data[2];
@@ -69,57 +66,10 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		view.image = ImportImage.read("planets/"+name.toLowerCase()+".png");
 	}	
 	
-	public static String[][] parsePlanetFile() throws IOException {
-		String[][] result = new String[8-1][13];
-		
-		InputStream ips1 = null;
-		try {
-			URL url = ImportData.class.getResource("ImportData.class");
-			URL urlText = new URL(url, "../data/planets.txt");
-			ips1 = urlText.openStream();
-		} catch (FileNotFoundException e1) {
-			try {
-				URL url = ImportData.class.getResource("ImportData.class");
-				URL urlText = new URL(url, "../../data/planets.txt");
-				ips1=urlText.openStream();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Reader ipsr1 = new InputStreamReader(ips1);
-		BufferedReader br1=new BufferedReader(ipsr1);
-		String ligne;
-		int incr = 0;
-		while ((ligne=br1.readLine())!=null) {
-			if (!ligne.equals("")) {
-				result[incr/13][incr%13] = ligne;
-				incr++;
-			}
-
-		}
-		
-		return result;
-	}
-	
-	public static void setSphericalCoordinates(LinkedList<CelestialBodyController> planetList) {
-		ListIterator<CelestialBodyController> iter = planetList.listIterator();
-		
-		Planet p;
-		int[] ymd = new int[] {AstrolabeHomeplanetModel.getYear(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getDay()};
-		while (iter.hasNext()) {
-			p = (Planet) iter.next();
-			double[] tmp = p.geocentricRectangularToSphericalCoordinates(JulianDate.toJulian(ymd));
-			p.model.setAlpha(tmp[1]);
-			p.model.setDelta(tmp[2]);
-		}
-	}
-	
 	public static void importPlanets(){
 		String[][] data;
 		try {
-			data = parsePlanetFile();
+			data = ImportCelestialData.parsePlanetFile();
 			double[] values = null;
 			
 			for(int i = 0; i<data.length; i++) {
@@ -145,4 +95,19 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void setSphericalCoordinates(LinkedList<CelestialBodyController> planetList) {
+		ListIterator<CelestialBodyController> iter = planetList.listIterator();
+		
+		Planet p;
+		int[] ymd = new int[] {AstrolabeHomeplanetModel.getYear(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getDay()};
+		while (iter.hasNext()) {
+			p = (Planet) iter.next();
+			double[] tmp = p.geocentricRectangularToSphericalCoordinates(JulianDate.toJulian(ymd));
+			p.model.setAlpha(tmp[1]);
+			p.model.setDelta(tmp[2]);
+		}
+	}
+	
+	
 }

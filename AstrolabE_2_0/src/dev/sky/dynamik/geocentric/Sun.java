@@ -61,12 +61,12 @@ public class Sun extends HeliocentricDynamicCelestialBody {
 		InputStream ips1 = null;
 		try {
 			URL url = ImportData.class.getResource("ImportData.class");
-			URL urlText = new URL(url, "../data/sun.txt");
+			URL urlText = new URL(url, "../../data/sun.txt");
 			ips1 = urlText.openStream();
 		} catch (FileNotFoundException e1) {
 			try {
 				URL url = ImportData.class.getResource("ImportData.class");
-				URL urlText = new URL(url, "../../data/sun.txt");
+				URL urlText = new URL(url, "../../../data/sun.txt");
 				ips1=urlText.openStream();
 			} catch (IOException e) {
 				e.printStackTrace();

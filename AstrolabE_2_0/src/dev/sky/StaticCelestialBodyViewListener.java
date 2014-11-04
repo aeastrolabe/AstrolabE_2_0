@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import dev.astrolabe.AstrolabeController;
-import dev.mission.StarSelectedStep;
 
 public class StaticCelestialBodyViewListener implements MouseListener {
 
@@ -20,12 +19,14 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		setupListener(e);
+		astrolabeController.getAstrolabeMainController().getMissionController().getView().repaint();
 		astrolabeController.getStateModel().setSelectedCelestialBody(celest.getModel());
-		System.out.println(astrolabeController.getLocalisationModel().getLatitude());
-		System.out.println("#"+astrolabeController.getStateModel().getSelectedCelestialBody().getName()+"#");
-		System.out.println("#"+((StarSelectedStep) (astrolabeController.getAstrolabeMainController().test_mission.getOrderedSteps().getFirst())).starToSelect.getModel().getName()+"#");
-		System.out.println(astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel()));
-
+		astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel());
+		astrolabeController.getAstrolabeMainController().test_mission.checkUnorderedStepCompletion(astrolabeController.getStateModel());
+		
+		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+		
+		
 		// TODO
 //		astrolabeController.setInformation(celest);
 //		CelestialBodyMasterController.setSelected(celest);
@@ -37,6 +38,11 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 
 	public void mouseEntered(MouseEvent e) {
 		setupListener(e);
+		
+		//display information
+		astrolabeController.getStateModel().setHighlightedCelestialBody(celest.getModel());
+		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+		
 		// TODO for a later version : closer pointing for close stars
 		//if (closeToCenter(e.getPoint())) {
 			celest.getView().sizeCoeff = 1.5;
@@ -45,6 +51,11 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	}
 
 	public void mouseExited(MouseEvent e) {
+		//discard information
+		astrolabeController.getStateModel().setHighlightedCelestialBody(null);
+		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+		
+		//reducing celest size
 		celest.getView().sizeCoeff = 1.0;
 		celest.getView().repaint();
 	}

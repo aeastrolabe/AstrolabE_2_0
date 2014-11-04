@@ -1,6 +1,6 @@
 package dev.mission.ui;
 
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -16,7 +16,7 @@ public class MissionController extends Controller {
 	
 	@Deprecated
 	public MissionController() {
-		view = new MissionView();
+		view = new MissionView(this);
 		
 		createGUI();
 	}
@@ -24,7 +24,7 @@ public class MissionController extends Controller {
 	public MissionController(Mission m) {
 		model = m;
 		
-		view = new MissionView();
+		view = new MissionView(this);
 		
 		createGUI();
 	}
@@ -53,9 +53,9 @@ public class MissionController extends Controller {
 		JLabel[] o = new JLabel[no+1];
 		o[0] = new JLabel("Ordered missions");
 		view.add(o[0]);
-		System.out.println(no);
 		for(int i = 0; i < no; i++) {
 			o[i+1] = new JLabel(model.getOrderedSteps().get(i).getInstruction());
+			o[i+1].setForeground(Color.red);
 			view.add(o[i+1]);
 		}
 		view.setOrdered(o);
@@ -65,6 +65,7 @@ public class MissionController extends Controller {
 		view.add(u[0]);
 		for(int i = 0; i < nu; i++) {
 			u[i+1] = new JLabel(model.getUnorderedSteps().get(i).getInstruction());
+			u[i+1].setForeground(Color.red);
 			view.add(u[i+1]);
 		}
 		view.setUnordered(u);
@@ -76,6 +77,25 @@ public class MissionController extends Controller {
 		}
 		for(JLabel l : view.getUnordered()) {
 			view.add(l);
+		}
+	}
+	
+	public void updateLabels() {
+		for(int i = 0; i < model.getOrderedStepsCount(); i++) {
+			if (model.getOrderedSteps().get(i).isCompleted()) {
+				view.getOrdered()[i+1].setForeground(Color.green);
+			}
+			else {
+				view.getOrdered()[i+1].setForeground(Color.red);
+			}
+		}
+		for(int i = 0; i < model.getUnorderedStepsCount(); i++) {
+			if (model.getUnorderedSteps().get(i).isCompleted()) {
+				view.getUnordered()[i+1].setForeground(Color.green);
+			}
+			else {
+				view.getUnordered()[i+1].setForeground(Color.red);
+			}
 		}
 	}
 

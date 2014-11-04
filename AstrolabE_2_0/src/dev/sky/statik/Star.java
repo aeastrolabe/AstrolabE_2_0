@@ -20,7 +20,6 @@ public class Star extends StaticCelestialBody {
 		this.id = id;
 		this.misc_info = misc_info;
 		this.setColorCode(colorCode.charAt(0));
-		
 		try {
 			view.image = ImportImage.read("stars/star"+this.colorCode+".png");
 		}

@@ -64,7 +64,7 @@ public class AppMenuBar extends JMenuBar {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		super.paintComponents(g);
+//		super.paintComponents(g);
 		file.repaint();
 		edit.repaint();
 		options.repaint();

@@ -26,9 +26,8 @@ public class ReteView extends AstrolabePartView {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		controller.drawEcliptic(g2);
 		
-		//TODO virer ça
-		g2.fillOval(50, 50, 5, 5);
 		controller.drawStars(g2);
+		controller.drawPlanets(g2);
 	}
 
 }

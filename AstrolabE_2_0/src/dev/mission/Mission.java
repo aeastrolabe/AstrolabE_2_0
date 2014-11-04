@@ -52,7 +52,7 @@ public class Mission {
 		unorderedStepsCount++;
 	}
 	
-	public int getCurrentStep() {
+	public int getCurrentStepIndex() {
 		Step s;
 		int i = 0;
 		for(Object o : orderedSteps.toArray()) {
@@ -66,6 +66,17 @@ public class Mission {
 		}
 
 		return i;
+	}
+	
+	public Step getCurrentStep() {
+		Step s = null;
+		for(Object o : orderedSteps.toArray()) {
+			s = (Step) o;
+			if (!s.isCompleted()) {
+				break;
+			}
+		}
+		return s;
 	}
 	
 	
@@ -96,9 +107,9 @@ public class Mission {
 	}
 	
 	public boolean checkCurrentOrderedStepCompletion(AstrolabeStateModel stateModel) {
-		boolean test = orderedSteps.get(getCurrentStep()).success(stateModel);
+		boolean test = getCurrentStep().success(stateModel);
 		if (test) {
-			orderedSteps.get(getCurrentStep()).setCompleted();
+			getCurrentStep().setCompleted();
 			return true;
 		}
 		else {

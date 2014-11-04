@@ -2,9 +2,11 @@ package dev.menubar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import dev.MainFrame;
 import dev.astrolabe.AstrolabeController;
@@ -41,6 +43,8 @@ public class AstrolabeTransformResetMenu extends JMenu {
 				resetAll();
 			}
 		});
+		resetAll.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 		this.add(resetAll);
 	}
 
@@ -48,7 +52,10 @@ public class AstrolabeTransformResetMenu extends JMenu {
 		astrolabeController.resetInitCenter();
 		astrolabeController.initCenter();
 		astrolabeController.resetScale();
-		astrolabeController.resetReteRotation();
+		
+		//TODO maybe not rete and rule rotation....
+//		astrolabeController.resetReteRotation();
+		
 		astrolabeController.getView().repaint();
 	}
 

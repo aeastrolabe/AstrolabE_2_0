@@ -3,16 +3,15 @@ package dev;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.KeyboardFocusManager;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import dev.astrolabe.AstrolabeController;
 import dev.astrolabe.AstrolabeMainController;
-import dev.io.ImportCelestialData;
 import dev.menubar.AppMenuBar;
-import dev.options.KeyboardListener;
+import dev.sky.dynamik.heliocentric.Planet;
+import dev.sky.io.ImportCelestialData;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -41,6 +40,7 @@ public class MainFrame extends JFrame {
 		astrolabeMainController = new AstrolabeMainController();
 		
 		ImportCelestialData.getStarsShort();
+		Planet.importPlanets();
 		
 		initMenuBar();
 		
@@ -49,8 +49,9 @@ public class MainFrame extends JFrame {
 		pack();
 		menuBar.repaint();
 		
-		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new KeyboardListener(this));
+		//TODO temporarily replaced by key accelerators
+//		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+//        manager.addKeyEventDispatcher(new KeyboardListener(this));
 		
 		setVisible(true);
 	}
@@ -66,7 +67,7 @@ public class MainFrame extends JFrame {
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		super.paintComponents(g);
+//		super.paintComponents(g);
 		astrolabeMainController.getView().repaint();
 		menuBar.repaint();
 	}

@@ -33,9 +33,6 @@ public class TympanView extends AstrolabePartView {
 		controller.drawLigneCrepusculaire(g2);
 		controller.drawLimbe(g2);
 		controller.drawZenith(g2);
-		
-		//TODO virer ça
-		g2.fillOval(-50, -50, 5, 5);
 	}
 
 }
