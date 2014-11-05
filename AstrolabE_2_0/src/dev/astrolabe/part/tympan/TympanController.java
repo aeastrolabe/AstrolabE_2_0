@@ -2,8 +2,10 @@ package dev.astrolabe.part.tympan;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 
 import dev.astrolabe.AstrolabeController;
 import dev.astrolabe.AstrolabeStyleModel;
@@ -16,7 +18,7 @@ public class TympanController extends AstrolabePartController {
 	private TympanView view;
 	private TympanModel model;
 	
-	
+	private RadialGradientPaint intern;
 	
 	public TympanController(AstrolabeController astrolabeController) {
 		setAstrolabeController(astrolabeController);
@@ -25,6 +27,8 @@ public class TympanController extends AstrolabePartController {
 		model = new TympanModel();
 		model.set_h(localisationModel.getLatitude(),getEquatorRadius());
 		model.set_pi_a(localisationModel.getLatitude(),getEquatorRadius());
+		
+		setupInternGradient();
 		
 		view = new TympanView(this);
 	}
@@ -44,9 +48,26 @@ public class TympanController extends AstrolabePartController {
 	}
 	
 	public void FillTympanBackground(Graphics2D g) {
-		double r = getOuterTropicRadius() +  astrolabeController.getStateModel().TYMPAN_PADDING + astrolabeController.getStateModel().LIMBE_PADDING;
-		g.setColor(AstrolabeStyleModel.getSelected().getTympanColor());
-		g.fill(new Ellipse2D.Double(-r,-r,2*r,2*r));
+		double r = getOuterTropicRadius() +  astrolabeController.getStateModel().TYMPAN_PADDING + astrolabeController.getStateModel().LIMBE_PADDING;	
+    	g.setPaint(intern);
+	    g.fill(new Ellipse2D.Double(-r,-r,2*r,2*r));
+		
+	}
+	
+	private void setupInternGradient() {
+		Point2D center = new Point2D.Float(0,(float) -model.getC_h()[0]);
+	    float radius = (float) model.getR_h()[0];
+	    Point2D focus = new Point2D.Float(0,(float) -model.getC_h()[model.N_ALTITUDE]);
+		
+	    try {
+	    intern = new RadialGradientPaint(center,
+					radius,
+					focus,
+					AstrolabeStyleModel.getSelected().getTympanFractions(),AstrolabeStyleModel.getSelected().getTympanColors(),RadialGradientPaint.CycleMethod.NO_CYCLE);
+	    }
+	    catch (IllegalArgumentException e) {
+	    	//System.out.println(radius+"  "+astrolabe.getTympan().phi);
+	    }
 	}
 
 	public void drawEquator(Graphics2D g) {	

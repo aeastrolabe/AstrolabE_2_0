@@ -55,7 +55,7 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 		pressedButton = e.getButton();
 		savedMousePosition.setLocation(e.getPoint());
 		if (e.getButton() == DRAG_BUTTON) {
-			savedPosition = (Point) controller.getAstrolabeCenter();
+			savedPosition = controller.getAstrolabeCenter();
 			currentPosition = (Point) savedPosition.clone();
 		}
 		if (e.getButton() == ROTATION_BUTTON) {

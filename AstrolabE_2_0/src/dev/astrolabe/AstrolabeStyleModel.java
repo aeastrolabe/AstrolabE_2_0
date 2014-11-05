@@ -8,7 +8,7 @@ public enum AstrolabeStyleModel {
 	GREEK(
 			"Greek",
 			Color.magenta,
-			Color.orange,
+			new Color[] {new Color(255, 254, 198),new Color(40,90,172),new Color(40,72,150)},
 			Color.red,
 			Color.red,
 			Color.black
@@ -16,7 +16,7 @@ public enum AstrolabeStyleModel {
 	ARAB(
 			"Arab",
 			Color.red,
-			Color.orange,
+			new Color[] {new Color(90, 150, 240),new Color(40,90,172),new Color(40,72,150)},
 			Color.red,
 			Color.red,
 			Color.black
@@ -24,7 +24,7 @@ public enum AstrolabeStyleModel {
 	RENAISSANCE(
 			"Renaissance",
 			Color.pink,
-			Color.orange,
+			new Color[] {new Color(90, 150, 240),new Color(40,90,172),new Color(40,72,150)},
 			Color.red,
 			Color.red,
 			Color.black
@@ -32,7 +32,7 @@ public enum AstrolabeStyleModel {
 	MODERN(
 			"Modern",
 			Color.white,
-			Color.orange,
+			new Color[] {new Color(90, 150, 240),new Color(40,90,172),new Color(40,72,150)},
 			Color.red,
 			Color.red,
 			Color.black
@@ -40,11 +40,15 @@ public enum AstrolabeStyleModel {
 
 	private String name = "";
 	private Color backgroundColor = Color.white;
-	private Color tympanColor = Color.orange;
+	
+	private float[] tympanFractions = new float[] {0.0f, 0.8f, 1.0f};
+	private Color[] tympanColors = new Color[] {new Color(90, 150, 240),new Color(40,90,172),new Color(40,72,150)};
 	
 	private Color equatorColor = Color.red;
 	private Color tropicsColor = Color.red;
 	private Color eclipticColor = Color.black;
+	
+	
 	
 	private static AstrolabeStyleModel selected = MODERN;
 
@@ -52,13 +56,13 @@ public enum AstrolabeStyleModel {
 	AstrolabeStyleModel(
 			String name,
 			Color backgroundColor,
-			Color tympanColor,
+			Color[] tympanColors,
 			Color equatorColor,
 			Color tropicsColor,
 			Color eclipticColor){
 		this.name = name;
 		this.backgroundColor = backgroundColor;
-		this.tympanColor = tympanColor;
+		this.tympanColors = tympanColors;
 		this.equatorColor = equatorColor;
 		this.tropicsColor = tropicsColor;
 		this.eclipticColor = eclipticColor;
@@ -119,8 +123,8 @@ public enum AstrolabeStyleModel {
 		}
 	}
 
-	public Color getTympanColor() {
-		return tympanColor;
+	public Color[] getTympanColors() {
+		return tympanColors;
 	}
 	
 	public Color getEquatorColor() {
@@ -133,6 +137,20 @@ public enum AstrolabeStyleModel {
 	
 	public Color getEclipticColor() {
 		return eclipticColor;
+	}
+
+	/**
+	 * @return the tympanFractions
+	 */
+	public float[] getTympanFractions() {
+		return tympanFractions;
+	}
+
+	/**
+	 * @param tympanFractions the tympanFractions to set
+	 */
+	public void setTympanFractions(float[] tympanFractions) {
+		this.tympanFractions = tympanFractions;
 	}
 
 

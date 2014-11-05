@@ -85,9 +85,15 @@ public class CelestialBodyDataDisplayController extends Controller {
 		JLabel[] labels = view.getDataDisplays();
 		DecimalFormat df = new DecimalFormat("#.00"); 
 		if (m == null) {
-			for(JLabel l : labels) {
-				l.setText("No information available");
-			}
+			labels[0].setText("Name : ");
+			labels[1].setText("Type : ");
+			labels[2].setText("Magnitude : ");
+			labels[3].setText("Contellation : ");
+			labels[4].setText("Alpha : ");
+			labels[5].setText("Delta : ");
+//			for(JLabel l : labels) {
+//				l.setText("No information available");
+//			}
 			return false;
 		}
 		else {

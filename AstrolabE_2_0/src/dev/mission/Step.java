@@ -6,6 +6,10 @@ public abstract class Step {
 	
 	protected boolean completed = false;
 	
+	private boolean helpEnabled = true;
+	
+	public final static String DEFAULT_HELP_MESSAGE = "No help available";
+	
 	protected String instruction = "DEFAULT INSTRUCTION";
 
 	public static String getClassName(String s) {
@@ -14,7 +18,13 @@ public abstract class Step {
 	}
 	
 	public abstract boolean success(AstrolabeStateModel stateModel);
+	
+	public abstract String help();
 
+	public boolean isHelpEnabled() {
+		return helpEnabled;
+	}
+	
 	/**
 	 * @return completed
 	 */
@@ -23,7 +33,7 @@ public abstract class Step {
 	}
 
 	/**
-	 * @param sets the stepas completed
+	 * @param sets the step as completed
 	 */
 	public void setCompleted() {
 		this.completed = true;

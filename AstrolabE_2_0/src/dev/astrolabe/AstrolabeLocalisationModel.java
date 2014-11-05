@@ -10,7 +10,7 @@ public class AstrolabeLocalisationModel {
 	/*
 	 *  latitude >= 0
 	 */
-	private double latitude = 89.53;
+	private double latitude = 48.53;
 	
 	private double longitude = 0;
 

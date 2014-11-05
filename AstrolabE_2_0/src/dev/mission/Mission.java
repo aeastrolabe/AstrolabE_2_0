@@ -38,8 +38,16 @@ public class Mission {
 		return orderedSteps;
 	}
 	
+	public Step getOrderedStep(int i) {
+		return orderedSteps.get(i);
+	}
+	
 	public LinkedList<Step> getUnorderedSteps() {
 		return unorderedSteps;
+	}
+	
+	public Step getUnorderedStep(int i) {
+		return unorderedSteps.get(i);
 	}
 	
 	public void addOrderedStep(Step s) {

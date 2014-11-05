@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 import dev.mission.Mission;
+import dev.mission.Step;
 import dev.struct.Controller;
 
 public class MissionController extends Controller {
@@ -54,8 +55,14 @@ public class MissionController extends Controller {
 		o[0] = new JLabel("Ordered missions");
 		view.add(o[0]);
 		for(int i = 0; i < no; i++) {
-			o[i+1] = new JLabel(model.getOrderedSteps().get(i).getInstruction());
+			o[i+1] = new JLabel(model.getOrderedStep(i).getInstruction());
 			o[i+1].setForeground(Color.red);
+			if (model.getOrderedStep(i).isHelpEnabled()) {
+				o[i+1].setToolTipText(model.getOrderedStep(i).help());
+			}
+			else {
+				o[i+1].setToolTipText(Step.DEFAULT_HELP_MESSAGE);
+			}
 			view.add(o[i+1]);
 		}
 		view.setOrdered(o);
@@ -66,6 +73,12 @@ public class MissionController extends Controller {
 		for(int i = 0; i < nu; i++) {
 			u[i+1] = new JLabel(model.getUnorderedSteps().get(i).getInstruction());
 			u[i+1].setForeground(Color.red);
+			if (model.getUnorderedStep(i).isHelpEnabled()) {
+				u[i+1].setToolTipText(model.getUnorderedStep(i).help());
+			}
+			else {
+				u[i+1].setToolTipText(Step.DEFAULT_HELP_MESSAGE);
+			}
 			view.add(u[i+1]);
 		}
 		view.setUnordered(u);

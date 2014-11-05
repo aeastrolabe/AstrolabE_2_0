@@ -27,4 +27,9 @@ public class PlanetSelectedStep extends Step {
 	public boolean success(AstrolabeStateModel stateModel) {
 		return completed || planetToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName());
 	}
+	
+	@Override
+	public String help() {
+		return "Highlight the planets to find " + planetToSelect.getModel().getName() + " and click on it when found.";
+	}
 }

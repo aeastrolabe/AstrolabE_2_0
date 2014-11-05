@@ -23,5 +23,10 @@ public class StarSelectedStep extends Step {
 	public boolean success(AstrolabeStateModel stateModel) {
 		return completed || starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName());
 	}
+
+	@Override
+	public String help() {
+		return "Highlight the stars to find " + starToSelect.getModel().getName() + " and click on it when found.";
+	}
 	
 }

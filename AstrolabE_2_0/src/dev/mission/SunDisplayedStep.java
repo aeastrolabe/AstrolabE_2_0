@@ -24,4 +24,9 @@ public class SunDisplayedStep extends Step {
 	public boolean success(AstrolabeStateModel stateModel) {
 		return completed || stateModel.isSunDisplayed();
 	}
+
+	@Override
+	public String help() {
+		return "Click on the Display Sun button";
+	}
 }

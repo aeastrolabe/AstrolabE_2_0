@@ -74,7 +74,7 @@ public class Star extends StaticCelestialBody {
 			Constellation c = iterc.next();
 			ListIterator<CelestialBodyController> iters = c.getStarList().listIterator();
 			while (iters.hasNext()){
-				CelestialBodyController o = (Star) iters.next();
+				CelestialBodyController o = iters.next();
 				if (!o.getModel().getName().contains("#no_name#")) {
 					if (o.getModel().getMagnitude()<=m) {
 						o.setDisplayed(true);
