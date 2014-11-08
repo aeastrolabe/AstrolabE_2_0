@@ -9,7 +9,7 @@ import java.awt.event.MouseWheelListener;
 
 public class AstrolabeViewListener implements MouseListener, MouseMotionListener, MouseWheelListener {
 
-	AstrolabeController controller;
+	AstrolabeController astrolabeController;
 	
 	/*
 	 * Temporary variables
@@ -29,13 +29,14 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	private final int DRAG_BUTTON = 3;
 	
 	public AstrolabeViewListener(AstrolabeController astrolabeController) {
-		controller = astrolabeController;
+		this.astrolabeController = astrolabeController;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		controller.setSelected(null);
-		controller.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+		astrolabeController.setSelected(null);
+		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+		astrolabeController.drawAllStars();
 	}
 
 	@Override
@@ -55,54 +56,54 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 		pressedButton = e.getButton();
 		savedMousePosition.setLocation(e.getPoint());
 		if (e.getButton() == DRAG_BUTTON) {
-			savedPosition = controller.getAstrolabeCenter();
+			savedPosition = astrolabeController.getAstrolabeCenter();
 			currentPosition = (Point) savedPosition.clone();
 		}
 		if (e.getButton() == ROTATION_BUTTON) {
-			savedReteRotation = controller.getReteRotation();
+			savedReteRotation = astrolabeController.getReteRotation();
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		currentMousePosition = e.getPoint();
+		currentMousePosition.setLocation(e.getPoint().getX(), e.getPoint().getY());
 		
 		if (pressedButton == DRAG_BUTTON) {
 			dragMotion.setLocation(currentMousePosition.x-savedMousePosition.x, currentMousePosition.y-savedMousePosition.y);
-			currentPosition.translate(dragMotion.x, dragMotion.y);
+			currentPosition.setLocation(currentPosition.x + dragMotion.x, currentPosition.y + dragMotion.y); //translate(dragMotion.x, dragMotion.y);
 			moveConstrainedAstrolabeCenter();
 		}
 		
 		if (pressedButton == ROTATION_BUTTON) {
-			double anglei = Math.atan2(savedMousePosition.y - controller.getAstrolabeCenter().y,
-					savedMousePosition.x - controller.getAstrolabeCenter().x);
-			double anglef = Math.atan2(currentMousePosition.y - controller.getAstrolabeCenter().y,
-					currentMousePosition.x - controller.getAstrolabeCenter().x);
-			controller.setReteRotation(anglef-anglei+savedReteRotation);
+			double anglei = Math.atan2(savedMousePosition.y - astrolabeController.getAstrolabeCenter().y,
+					savedMousePosition.x - astrolabeController.getAstrolabeCenter().x);
+			double anglef = Math.atan2(currentMousePosition.y - astrolabeController.getAstrolabeCenter().y,
+					currentMousePosition.x - astrolabeController.getAstrolabeCenter().x);
+			astrolabeController.setReteRotation(anglef-anglei+savedReteRotation);
 		}
-		controller.getView().repaint();
+		astrolabeController.getView().repaint();
 	}
 	
 	private void moveConstrainedAstrolabeCenter() {
-		switch (controller.outOfBounds(currentPosition)) {
+		switch (astrolabeController.outOfBounds(currentPosition)) {
 		case 0:
-			controller.setAstrolabeCenter((Point) currentPosition.clone());
+			astrolabeController.setAstrolabeCenter((Point) currentPosition.clone());
 			currentPosition = (Point) savedPosition.clone();
 			break;
 		case 1:
 //			currentPosition.translate(-dragMotion.x, 0);
-			controller.setAstrolabeCenter((Point) currentPosition.clone());
+			astrolabeController.setAstrolabeCenter((Point) currentPosition.clone());
 			currentPosition = (Point) savedPosition.clone();
 //			currentPosition.translate(-dragMotion.x, -dragMotion.y);
 			break;
 		case 2:
 //			currentPosition.translate(0, -dragMotion.y);
-			controller.setAstrolabeCenter((Point) currentPosition.clone());
+			astrolabeController.setAstrolabeCenter((Point) currentPosition.clone());
 			currentPosition = (Point) savedPosition.clone();
 //			currentPosition.translate(-dragMotion.x, -dragMotion.y);
 			break;
 		case 3:
-			controller.setAstrolabeCenter((Point) currentPosition.clone());
+			astrolabeController.setAstrolabeCenter((Point) currentPosition.clone());
 			currentPosition = (Point) savedPosition.clone();
 //			currentPosition.translate(-dragMotion.x, -dragMotion.y);
 			break;
@@ -112,7 +113,7 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (pressedButton == DRAG_BUTTON) {
-			controller.getView().repaint();
+			astrolabeController.getView().repaint();
 			savedMousePosition = new Point();
 			savedPosition = new Point();
 			currentMousePosition = new Point();
@@ -133,12 +134,13 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() > 0) {
-			controller.scaleAstrolabeBy(AstrolabeStateModel.SCALING_RATE);
+			astrolabeController.scaleAstrolabeByRelativeTo(AstrolabeStateModel.SCALING_RATE, e.getPoint());
 		}
 		else {
-			controller.scaleAstrolabeBy(1/AstrolabeStateModel.SCALING_RATE);
+			astrolabeController.scaleAstrolabeByRelativeTo(1/AstrolabeStateModel.SCALING_RATE, e.getPoint());
 		}
-		controller.getView().repaint();
+		
+		astrolabeController.getView().repaint();
 	}
 
 }

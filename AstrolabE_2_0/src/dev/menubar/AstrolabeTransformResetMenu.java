@@ -50,7 +50,7 @@ public class AstrolabeTransformResetMenu extends JMenu {
 
 	public void resetAll() {
 		astrolabeController.resetInitCenter();
-		astrolabeController.initCenter();
+		astrolabeController.initCenterAndBounds();
 		astrolabeController.resetScale();
 		
 		//TODO maybe not rete and rule rotation....
@@ -66,7 +66,7 @@ public class AstrolabeTransformResetMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				astrolabeController.resetInitCenter();
-				astrolabeController.initCenter();
+				astrolabeController.initCenterAndBounds();
 				astrolabeController.getView().repaint();
 			}
 		});

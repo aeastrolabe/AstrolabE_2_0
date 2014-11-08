@@ -74,7 +74,7 @@ public class CelestialBodyDataDisplayController extends Controller {
 			labels[0].setText("Name : "+m.getName());
 			labels[1].setText("Type : "+m.getType());
 			labels[2].setText("Magnitude : "+m.getMagnitude());
-			labels[3].setText("Contellation : "+m.getConstellation());
+			labels[3].setText("Constellation : "+m.getConstellation());
 			labels[4].setText("Alpha : "+df.format(m.getAlpha()));
 			labels[5].setText("Delta : "+df.format(m.getDelta()));
 			return true;
@@ -88,7 +88,7 @@ public class CelestialBodyDataDisplayController extends Controller {
 			labels[0].setText("Name : ");
 			labels[1].setText("Type : ");
 			labels[2].setText("Magnitude : ");
-			labels[3].setText("Contellation : ");
+			labels[3].setText("Constellation : ");
 			labels[4].setText("Alpha : ");
 			labels[5].setText("Delta : ");
 //			for(JLabel l : labels) {
@@ -100,7 +100,7 @@ public class CelestialBodyDataDisplayController extends Controller {
 			labels[0].setText("Name : "+m.getName());
 			labels[1].setText("Type : "+m.getType());
 			labels[2].setText("Magnitude : "+m.getMagnitude());
-			labels[3].setText("Contellation : "+m.getConstellation());
+			labels[3].setText("Constellation : "+m.getConstellation());
 			labels[4].setText("Alpha : "+df.format(m.getAlpha()));
 			labels[5].setText("Delta : "+df.format(m.getDelta()));
 			return true;

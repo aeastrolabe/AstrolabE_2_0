@@ -37,6 +37,7 @@ public class ImportCelestialDataRemote {
 				String inputLine;
 				if (!lookForStar) {
 					while ((inputLine = in.readLine()) != null){
+						System.out.println(inputLine);
 						ConstellationM = ConstellationP.matcher(inputLine);
 						if (ConstellationM.find()) {
 							code.add(new String[] {
@@ -48,6 +49,7 @@ public class ImportCelestialDataRemote {
 				}
 				else {
 					while ((inputLine = in.readLine()) != null){
+						System.out.println(inputLine);
 						if (star_beg.matcher(inputLine).find()) {
 							ret = true;
 							info = new String[13];
@@ -88,9 +90,11 @@ public class ImportCelestialDataRemote {
 	        	site.openStream();
 	            return true;
 	        } catch (IOException ex) {
+	        	ex.printStackTrace();
 	            return false;
 	        }
 	   } catch (MalformedURLException ex) {
+		   ex.printStackTrace();
 	        return false;
 	   }
 	}

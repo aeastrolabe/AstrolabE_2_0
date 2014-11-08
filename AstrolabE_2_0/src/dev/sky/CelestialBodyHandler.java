@@ -2,16 +2,19 @@ package dev.sky;
 
 import java.awt.Graphics2D;
 
-//TODO change as an interface
 public interface CelestialBodyHandler {
 	
 	public CelestialBodyModel getSelected();
 	
 	public void setSelected(CelestialBodyModel celestialBody); 
 	
-	public void drawStars(Graphics2D g, Constellation c);
+	public void paintCelestialBody(CelestialBodyController c);
 	
 	void drawPlanets(Graphics2D g);
+
+	void drawAllStars();
+
+	void drawAllStars(Graphics2D g);
 	
 //	private CelestialBodyController selected;
 //

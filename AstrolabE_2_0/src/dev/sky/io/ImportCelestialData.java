@@ -38,8 +38,8 @@ public class ImportCelestialData {
 //			"(['])([ ]*)([-]{0,1})([ ]*)" +
 //			"([0-9][\\.][0-9]{2})([ ]*)([0-9]{2})" +
 //			"([ ])([0-9]{2})";
-//	
-//	private final static double maxMagnitudeAtImport = 2;
+	
+	private final static double maxMagnitudeAtImport = 2;
 	
 //	public static void getStars_() {
 //		System.out.println("**Lecture des donnees en cours**");
@@ -111,82 +111,82 @@ public class ImportCelestialData {
 //	}
 //	
 //	
-//	public static void getStars() {
-//		System.out.println("**Lecture des donnees en cours**");
-//		InputStream ips1 = null;
-//		Reader ipsr1 = null;
-//		try {
-//			try {
-//				URL url = Constellation.class.getResource("Constellation.class");
-//				URL urlText = new URL(url, "../../data/stars.txt");
-//				ips1 = urlText.openStream();
-//				ipsr1 = new InputStreamReader(ips1);
-//			} catch (FileNotFoundException e1) {
-//				try {
-//					URL url = Constellation.class.getResource("Constellation.class");
-//					URL urlText = new URL(url, "../../../data/stars.txt");
-//					ips1=urlText.openStream();
-//					ipsr1 = new InputStreamReader(ips1,"UTF-8");
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (MalformedURLException e) {
-//					e.printStackTrace();
-//				}
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			}
-//
-//			BufferedReader br1=new BufferedReader(ipsr1);
-//			String ligne;
-//
-//			LinkedList<Star> listeEtoiles = new LinkedList<Star>();
-//			@SuppressWarnings("unused")
-//			LinkedList<String> listeConstellations = new LinkedList<String>();
-//			while ((ligne=br1.readLine())!=null) {
-//				String[] info = ligne.split("@");
-//				if (info.length>= 4 && Double.parseDouble(info[3].replaceAll(" ", "")) < maxMagnitudeAtImport) {
-//					if (info.length>=8) {
-//						try {
-//							Star current = new Star(info[1].replaceAll("(&#160;;|&#160;)",""), info[2] ,
-//									Integer.parseInt(info[0].replaceAll(" ", "")),
-//									Double.parseDouble(info[3].replaceAll(" ", "")),
-//									Double.parseDouble(info[4].replaceAll(" ", ""))*360/24., 
-//									Double.parseDouble(info[5].replaceAll(" ", "")),
-//									info[6].replaceAll(" *", ""), 0, info[7].replaceAll("(&#160;;|&#160;)",""));
-//							Constellation.addNew(new Constellation(info[2],info[2]));
-//							    Constellation.addStar(current);
-//							    listeEtoiles.add(current);
-//						}
-//						catch (Exception e) {
-//							e.printStackTrace();
-//							for(int i=0;i<8;i++) {
-//								System.out.println(info[i]);
-//							}
-//						}
-//					}
-//					else {
-//						if (info.length>=7) {
-//						Star current = new Star(info[1].replaceAll("(&#160;;|&#160;)",""), info[2] ,
-//								Integer.parseInt(info[0].replaceAll(" ", "")),
-//								Double.parseDouble(info[3].replaceAll(" ", "")),
-//								Double.parseDouble(info[4].replaceAll(" ", ""))*360/24., 
-//								Double.parseDouble(info[5].replaceAll(" ", "")),
-//								info[6].replaceAll(" *", ""), 0, "");
-//						Constellation.addNew(new Constellation(info[2],info[2]));
-//						    Constellation.addStar(current);
-//						    listeEtoiles.add(current);
-//						}
-//					}
-//				}
-//			}
-//			System.out.println("**    Nombre de constellations : "+Constellation.getConstellationList().size()+"**");
-//			System.out.println("**    Nombre d'etoiles : "+listeEtoiles.size()+"**");
-//		ips1.close();
-//		System.out.println("**Lecture des donnees terminees**");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} 
-//	}
+	public static void getStars() {
+		System.out.println("**Lecture des donnees en cours**");
+		InputStream ips1 = null;
+		Reader ipsr1 = null;
+		try {
+			try {
+				URL url = Constellation.class.getResource("Constellation.class");
+				URL urlText = new URL(url, "../../data/stars.txt");
+				ips1 = urlText.openStream();
+				ipsr1 = new InputStreamReader(ips1);
+			} catch (FileNotFoundException e1) {
+				try {
+					URL url = Constellation.class.getResource("Constellation.class");
+					URL urlText = new URL(url, "../../../data/stars.txt");
+					ips1=urlText.openStream();
+					ipsr1 = new InputStreamReader(ips1,"UTF-8");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+
+			BufferedReader br1=new BufferedReader(ipsr1);
+			String ligne;
+
+			LinkedList<Star> listeEtoiles = new LinkedList<Star>();
+			@SuppressWarnings("unused")
+			LinkedList<String> listeConstellations = new LinkedList<String>();
+			while ((ligne=br1.readLine())!=null) {
+				String[] info = ligne.split("@");
+				if (info.length>= 4 && Double.parseDouble(info[3].replaceAll(" ", "")) < maxMagnitudeAtImport) {
+					if (info.length>=8) {
+						try {
+							Star current = new Star(info[1].replaceAll("(&#160;;|&#160;)",""), info[2] ,
+									Integer.parseInt(info[0].replaceAll(" ", "")),
+									Double.parseDouble(info[3].replaceAll(" ", "")),
+									Double.parseDouble(info[4].replaceAll(" ", ""))*360/24., 
+									Double.parseDouble(info[5].replaceAll(" ", "")),
+									info[6].replaceAll(" *", ""), 0, info[7].replaceAll("(&#160;;|&#160;)",""));
+							Constellation.addNew(new Constellation(info[2],info[2]));
+							    Constellation.addStar(current);
+							    listeEtoiles.add(current);
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+							for(int i=0;i<8;i++) {
+								System.out.println(info[i]);
+							}
+						}
+					}
+					else {
+						if (info.length>=7) {
+						Star current = new Star(info[1].replaceAll("(&#160;;|&#160;)",""), info[2] ,
+								Integer.parseInt(info[0].replaceAll(" ", "")),
+								Double.parseDouble(info[3].replaceAll(" ", "")),
+								Double.parseDouble(info[4].replaceAll(" ", ""))*360/24., 
+								Double.parseDouble(info[5].replaceAll(" ", "")),
+								info[6].replaceAll(" *", ""), 0, "");
+						Constellation.addNew(new Constellation(info[2],info[2]));
+						    Constellation.addStar(current);
+						    listeEtoiles.add(current);
+						}
+					}
+				}
+			}
+			System.out.println("**    Nombre de constellations : "+Constellation.getConstellationList().size()+"**");
+			System.out.println("**    Nombre d'etoiles : "+listeEtoiles.size()+"**");
+		ips1.close();
+		System.out.println("**Lecture des donnees terminees**");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
 	
 	public static void getStarsShort() {
 		System.out.println("**Lecture des donnees en cours**");

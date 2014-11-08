@@ -31,13 +31,13 @@ public class CelestialBodyViewListener implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		// TODO for a later version : closer pointing for close stars
 		//if (closeToCenter(e.getPoint())) {
-			celest.getView().sizeCoeff = 1.5;
+			celest.getView().setSizeCoeff(1.5);
 			celest.getView().repaint();
 		//}
 	}
 
 	public void mouseExited(MouseEvent e) {
-		celest.getView().sizeCoeff = 1.0;
+		celest.getView().setSizeCoeff(1.0);
 		celest.getView().repaint();
 	}
 

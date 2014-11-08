@@ -1,12 +1,9 @@
 package dev.astrolabe.part.rete;
 
 import java.awt.Graphics2D;
-import java.util.ListIterator;
 
 import dev.astrolabe.AstrolabeController;
-import dev.astrolabe.AstrolabeStyleModel;
 import dev.astrolabe.part.AstrolabePartController;
-import dev.sky.Constellation;
 import dev.utils.AstrolabeStroke;
 
 public class ReteController extends AstrolabePartController {
@@ -31,17 +28,12 @@ public class ReteController extends AstrolabePartController {
 	
 	public void drawEcliptic(Graphics2D g) {
 		g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.LARGE, AstrolabeStroke.SOLID));
-		g.setColor(AstrolabeStyleModel.getSelected().getEclipticColor());
+		g.setColor(astrolabeController.getStyleModel().getEclipticColor());
 		drawCircle(g, getXecliptic(), getYecliptic(), getRecliptic());
 	}
 	
-	public void drawStars(Graphics2D g) {
-		//TODO I don't like this...
-		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
-		while (iterc.hasNext()){
-			Constellation c = iterc.next();
-			astrolabeController.drawStars(g,c);
-		}
+	public void drawAllStars(Graphics2D g) {
+		astrolabeController.drawAllStars(g);
 	}
 	
 	public void drawPlanets(Graphics2D g) {

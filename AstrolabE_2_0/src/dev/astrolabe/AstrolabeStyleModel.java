@@ -8,9 +8,9 @@ public enum AstrolabeStyleModel {
 	GREEK(
 			"Greek",
 			Color.magenta,
-			new Color[] {new Color(255, 254, 198),new Color(40,90,172),new Color(40,72,150)},
-			Color.red,
-			Color.red,
+			new Color[] {new Color(212, 187, 80),new Color(113,102,40),new Color(100,94,40)},
+			new Color(40,40,40),
+			new Color(40,40,40),
 			Color.black
 			),
 	ARAB(
@@ -47,10 +47,6 @@ public enum AstrolabeStyleModel {
 	private Color equatorColor = Color.red;
 	private Color tropicsColor = Color.red;
 	private Color eclipticColor = Color.black;
-	
-	
-	
-	private static AstrolabeStyleModel selected = MODERN;
 
 	//Constructeur
 	AstrolabeStyleModel(
@@ -94,32 +90,19 @@ public enum AstrolabeStyleModel {
 			return MODERN;
 		}
 	}
-	
-	public static AstrolabeStyleModel getSelected() {
-		return selected;
-	}
 
-	public static void setSelected(AstrolabeStyleModel select) {
-		selected = select;
-	}
-	
-	public static void setSelected(String select) {
+	public static AstrolabeStyleModel get(String select) {
 		switch (select) {
 		case "Greek":
-			selected = GREEK;
-			break;
+			return GREEK;
 		case "Arab":
-			selected = ARAB;
-			break;
+			return ARAB;
 		case "Renaissance":
-			selected = RENAISSANCE;
-			break;
+			return RENAISSANCE;
 		case "Modern":
-			selected = MODERN;
-			break;
+			return MODERN;
 		default:
-			selected = MODERN;
-			break;
+			return MODERN;
 		}
 	}
 

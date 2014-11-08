@@ -25,14 +25,17 @@ public class TympanView extends AstrolabePartView {
 		
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		controller.FillTympanBackground(g2);
+		controller.drawMire(g2);
+		controller.drawEqualAzimuth(g2);
+		controller.drawAlmucantarats(g2);
+		
+		controller.drawLigneCrepusculaire(g2);
 		controller.drawEquator(g2);
 		controller.drawTropics(g2);
-		controller.drawMire(g2);
-		controller.drawAlmucantarats(g2);
-		controller.drawEqualAzimuth(g2);
-		controller.drawLigneCrepusculaire(g2);
 		controller.drawLimbe(g2);
 		controller.drawZenith(g2);
+		controller.drawCardinalPoints(g2);
 	}
+
 
 }

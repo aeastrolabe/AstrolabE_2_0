@@ -28,11 +28,11 @@ public class LatitudeSliderController extends Controller {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			astrolabeMainController.getAstrolabeController().setLatitude(((LatitudeSliderView) e.getSource()).getValue());
-			astrolabeMainController.getAstrolabeController().getTympanController().updateModel();
 
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
+					astrolabeMainController.getAstrolabeController().getTympanController().updateModel();
 					astrolabeMainController.getView().repaint();
 				}
 			});

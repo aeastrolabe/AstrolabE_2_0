@@ -10,6 +10,7 @@ public abstract class CelestialBodyController {
 	protected boolean surbrillance = false;
 	protected boolean displayed;
 	
+	//TODO does this need to be static ?...
 	private static AstrolabeController astrolabeController;
 	
 	private static StaticCelestialBodyViewListener listener = new StaticCelestialBodyViewListener();

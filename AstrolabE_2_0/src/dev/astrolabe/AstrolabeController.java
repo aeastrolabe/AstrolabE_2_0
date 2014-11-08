@@ -3,6 +3,7 @@ package dev.astrolabe;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
@@ -23,6 +24,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	private AstrolabeStateModel stateModel;
 	private AstrolabeHomeplanetModel homeplanetModel;
 	private AstrolabeLocalisationModel localisationModel;
+	private AstrolabeStyleModel styleModel;
 	
 	private TympanController tympanController;
 	private ReteController reteController;
@@ -35,12 +37,13 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		stateModel = new AstrolabeStateModel();
 		homeplanetModel = new AstrolabeHomeplanetModel();
 		localisationModel = new AstrolabeLocalisationModel();
+		styleModel = AstrolabeStyleModel.get("Default");
 		
 		view = new AstrolabeView(this);
 		view.setPreferredSize(new Dimension(600, 400));
 		view.setLayout(null);
 		
-		setupModel();
+		setupStateModel();
 		
 		CelestialBodyController.setAstrolabeController(this);
 				
@@ -49,7 +52,6 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		
 		background = new JPanel();
 		
-		createBackground();
 		createGUI();
 		
 		AstrolabeViewListener listener = new AstrolabeViewListener(this);
@@ -59,23 +61,22 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		view.addMouseWheelListener(listener);
 	}
 
-	private void setupModel() {
+	private void setupStateModel() {
 		stateModel.setAstrolabeCenter(new Point(view.getWidth()/2, view.getHeight()/2));
 	}
 	
 	public TympanController getTympanController() {
 		return tympanController;
 	}
-
-	private void createBackground() {
-		updateBackgroundColor();
-		view.add(background,new Integer(0),0);
-		view.revalidate();
+	
+	public void updateBackgroundColor() {
+		background.setBackground(styleModel.getBackgroundColor());
 	}
 	
 	@Override
 	public void createGUI() {
-		updateBounds();
+		updateBackgroundColor();
+		view.add(background,new Integer(0),0);
 		view.add(tympanController.getView(),new Integer(1),0);
 		view.add(getReteController().getView(),new Integer(2),0);
 		view.revalidate();
@@ -89,25 +90,19 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		stateModel.resetAstrolabeScale();
 	}
 	
-	public void initCenter() {
+	public void initCenterAndBounds() {
 		if (!stateModel.getAstrolabeCenterInit()) {
 			stateModel.setAstrolabeCenter(new Point(view.getWidth()/2,view.getHeight()/2));
 			stateModel.setAstrolabeCenterInit(true);
+			
+			background.setBounds(view.getVisibleRect());
+			tympanController.getView().setBounds(view.getVisibleRect());
+			getReteController().getView().setBounds(view.getVisibleRect());
 		}	
-	}
-
-	public void updateBounds() {
-		background.setBounds(view.getVisibleRect());
-		tympanController.getView().setBounds(view.getVisibleRect());
-		getReteController().getView().setBounds(view.getVisibleRect());
 	}
 
 	public AstrolabeView getView() {
 		return view;
-	}
-
-	public void updateBackgroundColor() {
-		background.setBackground(AstrolabeStyleModel.getSelected().getBackgroundColor());
 	}
 
 	/**
@@ -142,15 +137,12 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		stateModel.setAstrolabeCenter((Point) p.clone());
 	}
 
-	public void scaleAstrolabeBy(double r) {
-		stateModel.scaleAstrolabeBy(r);
-	}
-	
-	//TODO implement this !
 	public void scaleAstrolabeByRelativeTo(double r, Point p) {
+		Point c = stateModel.getAstrolabeCenter();
+		stateModel.setAstrolabeCenter(new Point((int) ((1-r)*p.x+r*c.x),(int) ((1-r)*p.y+r*c.y))); //TODO maybe pass to double coordinates ? there is a drift...
 		stateModel.scaleAstrolabeBy(r);
 	}
-	
+
 	public double getAstrolabeScale() {
 		return stateModel.getAstrolabeScale();
 	}
@@ -173,6 +165,10 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	
 	public double getAstrolabeRadius() {
 		return tympanController.getOuterTropicRadius() + stateModel.TYMPAN_PADDING + stateModel.LIMBE_PADDING;
+	}
+	
+	public double getAstrolabeInternalRadius() {
+		return tympanController.getOuterTropicRadius();
 	}
 
 	/**
@@ -200,13 +196,40 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	}
 
 	@Override
-	public void drawStars(Graphics2D g, Constellation c) {
+	public void drawAllStars() { //TODO correct this
+//		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
+//		CelestialBodyController s;
+//		Graphics2D g = (Graphics2D) reteController.getView().getGraphics();
+//		while (iterc.hasNext()){
+//			Constellation c = iterc.next();
+//			for(Object o : c.getStarList().toArray()) {
+//				s = (CelestialBodyController) o;
+//				if (s.isDisplayed()) {
+//					s.getView().draw(g);
+//				}
+//			}
+//		}
+	}
+	
+	@Override
+	public void drawAllStars(Graphics2D g) {
+		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
 		CelestialBodyController s;
-		for(Object o : c.getStarList().toArray()) {
-			s = (CelestialBodyController) o;
-			if (s.isDisplayed()) {
-				s.getView().draw(g);
+		while (iterc.hasNext()){
+			Constellation c = iterc.next();
+			for(Object o : c.getStarList().toArray()) {
+				s = (CelestialBodyController) o;
+				if (s.isDisplayed()) {
+					s.getView().draw(g);
+				}
 			}
+		}
+	}
+	
+	@Override
+	public void paintCelestialBody(CelestialBodyController c) {
+		if (c.isDisplayed()) {
+			c.getView().repaint();
 		}
 	}
 
@@ -233,5 +256,21 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 				s.getView().draw(g);
 			}
 		}
+	}
+
+	/**
+	 * @return the styleModel
+	 */
+	public AstrolabeStyleModel getStyleModel() {
+		return styleModel;
+	}
+
+	/**
+	 * @param styleModel the styleModel to set
+	 */
+	public void setStyleModel(AstrolabeStyleModel styleModel) {
+		this.styleModel = styleModel;
+		tympanController.setModels();
+		reteController.setModels();
 	}
 }

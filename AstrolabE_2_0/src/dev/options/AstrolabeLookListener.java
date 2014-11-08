@@ -22,11 +22,12 @@ public class AstrolabeLookListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AstrolabeStyleModel.setSelected(
+		astrolabeController.setStyleModel(AstrolabeStyleModel.get(
 						((JRadioButtonMenuItem) e.getSource()).getText()
+						)
 				);
-		//TODO be carefull, this may be useless
-		astrolabeController.getView().paintComponent(astrolabeController.getView().getGraphics());
+		astrolabeController.updateBackgroundColor();
+		astrolabeController.getView().repaint();
 	}
 
 }

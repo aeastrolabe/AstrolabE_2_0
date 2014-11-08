@@ -18,6 +18,8 @@ public class AstrolabeView extends JPanel {
 		setOpaque(true);
 		setBorder(BorderFactory.createLineBorder(Color.green));
 		
+		
+		
 		repaint();
 	}
 	
@@ -27,12 +29,15 @@ public class AstrolabeView extends JPanel {
 		super.paintComponent(g2);
 		super.paintComponents(g2);
 		
-		controller.initCenter();
-		controller.updateBounds();
+		//this is only called once if the localisation doesn't change
+		controller.initCenterAndBounds();
 		
-		controller.updateBackgroundColor();
-		controller.background.repaint();
-		controller.getTympanController().getView().repaint();
-		controller.getReteController().getView().repaint();
+//		controller.updateBackgroundColor();
+		
+		//TODO this adds lag
+//		controller.background.repaint();
+//		controller.getTympanController().getView().repaint();
+//		controller.getReteController().getView().repaint();
+		
 	}
 }

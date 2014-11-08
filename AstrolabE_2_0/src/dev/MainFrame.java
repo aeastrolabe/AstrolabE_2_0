@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
 		astrolabeMainController = new AstrolabeMainController();
 		
 		ImportCelestialData.getStarsShort();
+//		ImportCelestialData.getStars();
 		Planet.importPlanets();
 		
 		initMenuBar();
