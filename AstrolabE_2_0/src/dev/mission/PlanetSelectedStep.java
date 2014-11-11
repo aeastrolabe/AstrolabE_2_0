@@ -12,7 +12,7 @@ public class PlanetSelectedStep extends Step {
 			throw new Error("Null planet declared in step");
 		}
 		planetToSelect = p;
-		instruction = "Select planet " + p.getModel().getName();
+		setInstruction("Select planet " + p.getModel().getName());
 	}
 	
 	public String toString() {

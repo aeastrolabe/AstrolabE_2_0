@@ -217,7 +217,7 @@ public class TympanController extends AstrolabePartController {
 		g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.THIN, AstrolabeStroke.SOLID));
 		drawCircle(g, 0, 0, getOuterTropicRadius() + astrolabeController.getStateModel().TYMPAN_PADDING);
 
-		double t = localisationModel.getLongitude();
+//		double t = localisationModel.getLongitude();
 		
 		double R_inf = astrolabeController.getAstrolabeInternalRadius() + astrolabeController.getStateModel().TYMPAN_PADDING;
 		double R_sup = astrolabeController.getAstrolabeRadius();
@@ -293,76 +293,4 @@ public class TympanController extends AstrolabePartController {
 		g.rotate(-Math.PI/2);
 	}
 	
-//	public void drawLimbe_ref(Graphics2D g2D) {
-//		g2D.setColor(Color.black);
-//		g2D.rotate(Math.PI);
-//		double t = AstrolabeModel.longitude*4 + 2*60;
-//		if (!limbeAfficheHeureSolaire) {
-//			g2D.rotate(-t/24/60*Math.PI*2);
-//		}
-//		
-//		double R_capri = ((phi>=0) ? astrolabe.getCapricornRadius() : astrolabe.getCancerRadius());
-//		double dr_ecart = astrolabe.getDrEcart();
-//		double dr_limbe = astrolabe.getDrLimbe()*1.5;
-//		
-//		double d_angle = 0.5;
-//		double angle = 0;
-//		double trait, tick;
-//		int n_angle = (int) (360/d_angle);
-//		for (int i=0;i<n_angle;i++){
-//			//angle+=d_angle;
-//			double angle_rad=-(Math.signum(astrolabe.getTympan().phi))*angle/180*Math.PI; //TODO
-//			double c = Math.cos(angle/180.*Math.PI);
-//			double s = Math.sin(angle/180.*Math.PI);
-//			if (angle%2.5==0) {
-//				if (angle%15==0) {
-//					tick = dr_limbe;
-//					trait = epaisseurLimbeEpais;
-//					g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (trait*6)));
-//					g2D.rotate(-angle_rad);
-//					g2D.translate(0, -R_inf-dr_limbe/2);
-//					//g2D.drawString(Double.toString((int) (angle/15)+6), (int) (R_mil1+dr_limbe/2), 3);
-//					g2D.drawString(Integer.toString((int) (angle/15+24-(Math.signum(astrolabe.getTympan().phi)*6))%24), 5, 0);
-//					g2D.translate(0, R_inf+dr_limbe/2);
-//					g2D.rotate(angle_rad);
-//					g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD, (int) (trait*3)));
-//					g2D.rotate(-angle_rad);
-//					g2D.translate(0, -R_inf-dr_limbe/2);
-//					//g2D.drawString(Double.toString((int) (angle/15)+6), (int) (R_mil1+dr_limbe/2), 3);
-//					g2D.drawString("h", 5+epaisseurLimbeEpais*8, -epaisseurLimbeEpais*2);
-//					g2D.translate(0, R_inf+dr_limbe/2);
-//					g2D.rotate(angle_rad);
-//				}
-//				else {
-//					tick = dr_limbe/2;
-//					trait = epaisseurLimbeFin;
-//					if (angle%7.5==0) {
-//						g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD, (int) (trait*4)));
-//						g2D.rotate(-angle_rad);
-//						g2D.translate(0, -R_inf-dr_limbe/2);
-//						//g2D.drawString("30", (int) (R_mil1+dr_limbe/2), 5);
-//						g2D.drawString("30", (int) (-trait*3), 0);
-//						g2D.translate(0, R_inf+dr_limbe/2);
-//						g2D.rotate(angle_rad);
-//					}
-//				}
-//			}
-//			else {
-//				tick = dr_limbe/4;
-//				trait = epaisseurLimbeFin;
-//			}
-//			
-//			g2D.setStroke(new BasicStroke((float) trait, BasicStroke.CAP_SQUARE,
-//	                BasicStroke.JOIN_MITER, 10.0f));
-//			g2D.drawLine((int) (c*R_inf), (int) (s*R_inf), (int) (c*(R_inf+tick)), (int) (s*(R_inf+tick)));
-//			//g2D.drawLine((int) R_mil1, 0, (int)(R_mil1+tick), 0);
-//			angle-=d_angle;
-//			angle=(angle+360)%360;
-//			//g2D.rotate(-d_angle);
-//			
-//		}
-//		if (!limbeAfficheHeureSolaire) {
-//			g2D.rotate(t/24/60*Math.PI*2);
-//		}
-//	}
 }

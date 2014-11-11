@@ -22,6 +22,7 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 		
 		astrolabeController.setSelected(celest.getModel());
 		
+		//TODO implement mission testing
 		astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel());
 		astrolabeController.getAstrolabeMainController().test_mission.checkUnorderedStepCompletion(astrolabeController.getStateModel());
 		astrolabeController.getAstrolabeMainController().getMissionController().getView().repaint();

@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import dev.mission.Mission;
+import dev.mission.RuleRotatedAligningStep;
 import dev.mission.StarSelectedStep;
 import dev.mission.SunDisplayedStep;
 import dev.mission.ui.MissionController;
@@ -41,6 +42,7 @@ public class AstrolabeMainController extends Controller {
 		test_mission = new Mission();
 		test_mission.addOrderedStep(new StarSelectedStep(new Star("Sirius")));
 		test_mission.addOrderedStep(new SunDisplayedStep(true));
+		test_mission.addUnorderedStep(new RuleRotatedAligningStep(new Star("Sirius")));
 		test_mission.addUnorderedStep(new StarSelectedStep(new Star("Aldébaran")));
 		
 		setMissionController(new MissionController(test_mission));

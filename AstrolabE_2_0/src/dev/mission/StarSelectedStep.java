@@ -12,7 +12,7 @@ public class StarSelectedStep extends Step {
 			throw new Error("Null star declared in step");
 		}
 		starToSelect = s;
-		instruction = "Select star " + s.getModel().getName();
+		setInstruction("Select star " + s.getModel().getName());
 	}
 	
 	public String toString() {

@@ -19,6 +19,8 @@ public class AstrolabeStateModel {
 	
 	private double reteRotation = 0;
 	
+	private double ruleRotation = 0;
+	
 	public final double LIMBE_PADDING = 30;
 	public final double TYMPAN_PADDING = 20;
 	
@@ -61,6 +63,20 @@ public class AstrolabeStateModel {
 	
 	public double getReteRotation() {
 		return reteRotation;
+	}
+
+	/**
+	 * @return the ruleRotation
+	 */
+	public double getRuleRotation() {
+		return ruleRotation;
+	}
+
+	/**
+	 * @param ruleRotation the ruleRotation to set
+	 */
+	public void setRuleRotation(double ruleRotation) {
+		this.ruleRotation = ruleRotation;
 	}
 
 	/**
