@@ -69,8 +69,7 @@ public class AstrolabeMainController extends Controller {
 		astrolabe.add(astrolabeController.getView());
 		
 		LatitudeSliderController ltc = new LatitudeSliderController(this);
-		top.add(ltc.getView());
-		
+		side.add(ltc.getView());
 		side.add(missionController.getView());
 		side.add(CBDDcontroller.getView());
 		

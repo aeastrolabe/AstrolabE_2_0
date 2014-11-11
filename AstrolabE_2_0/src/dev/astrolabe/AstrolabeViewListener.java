@@ -21,7 +21,14 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	Point savedMousePosition = new Point();
 	Point currentMousePosition = new Point();
 	
+	int rotatingPart = 0;
+	
+	private final int RETE_ROTATING = 1;
+	private final int RULE_ROTATING = 2;
+	
 	double savedReteRotation = 0;
+	
+	double savedRuleRotation = 0;
 	
 	private int pressedButton = 0;
 	
@@ -33,10 +40,16 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		astrolabeController.setSelected(null);
-		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
-		astrolabeController.drawAllStars();
+	public void mouseClicked(MouseEvent e) {
+		if (e.getClickCount() == 1) {
+			astrolabeController.setSelected(null);
+			astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+			astrolabeController.drawAllStars();
+		}
+		if (e.getClickCount() == 2) {
+			astrolabeController.setRuleRotation(Math.atan2(e.getY() - astrolabeController.getAstrolabeCenter().y, e.getX() - astrolabeController.getAstrolabeCenter().x ));
+			astrolabeController.getView().repaint();
+		}
 	}
 
 	@Override
@@ -59,8 +72,13 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 			savedPosition = astrolabeController.getAstrolabeCenter();
 			currentPosition = (Point) savedPosition.clone();
 		}
-		if (e.getButton() == ROTATION_BUTTON) {
+		if (e.getButton() == ROTATION_BUTTON && !astrolabeController.closeToRule(savedMousePosition)) {
+			rotatingPart = RETE_ROTATING;
 			savedReteRotation = astrolabeController.getReteRotation();
+		}
+		if (e.getButton() == ROTATION_BUTTON && astrolabeController.closeToRule(savedMousePosition)) {
+			rotatingPart = RULE_ROTATING;
+			savedRuleRotation = astrolabeController.getRuleRotation();
 		}
 	}
 
@@ -74,12 +92,19 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 			moveConstrainedAstrolabeCenter();
 		}
 		
-		if (pressedButton == ROTATION_BUTTON) {
+		if (pressedButton == ROTATION_BUTTON && rotatingPart == RETE_ROTATING) {
 			double anglei = Math.atan2(savedMousePosition.y - astrolabeController.getAstrolabeCenter().y,
 					savedMousePosition.x - astrolabeController.getAstrolabeCenter().x);
 			double anglef = Math.atan2(currentMousePosition.y - astrolabeController.getAstrolabeCenter().y,
 					currentMousePosition.x - astrolabeController.getAstrolabeCenter().x);
 			astrolabeController.setReteRotation(anglef-anglei+savedReteRotation);
+		}
+		if (pressedButton == ROTATION_BUTTON && rotatingPart == RULE_ROTATING) {
+			double anglei = Math.atan2(savedMousePosition.y - astrolabeController.getAstrolabeCenter().y,
+					savedMousePosition.x - astrolabeController.getAstrolabeCenter().x);
+			double anglef = Math.atan2(currentMousePosition.y - astrolabeController.getAstrolabeCenter().y,
+					currentMousePosition.x - astrolabeController.getAstrolabeCenter().x);
+			astrolabeController.setRuleRotation(anglef-anglei+savedRuleRotation);
 		}
 		astrolabeController.getView().repaint();
 	}

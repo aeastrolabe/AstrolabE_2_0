@@ -17,9 +17,7 @@ public class AstrolabeView extends JPanel {
 		
 		setOpaque(true);
 		setBorder(BorderFactory.createLineBorder(Color.green));
-		
-		
-		
+
 		repaint();
 	}
 	

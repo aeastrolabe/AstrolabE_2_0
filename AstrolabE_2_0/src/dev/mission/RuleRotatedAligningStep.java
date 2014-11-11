@@ -4,6 +4,7 @@ import java.util.Date;
 
 import dev.astrolabe.AstrolabeStateModel;
 import dev.sky.CelestialBodyController;
+import dev.utils.Log;
 
 public class RuleRotatedAligningStep extends Step {
 
@@ -37,6 +38,8 @@ public class RuleRotatedAligningStep extends Step {
 	//TODO check correctness
 	@Override
 	public boolean success(AstrolabeStateModel stateModel) {
+		Log.log(objectiveAngle+"", this);
+		
 		switch (alignTarget) {
 		case 0:
 			return (Math.toDegrees(stateModel.getRuleRotation() - stateModel.getReteRotation()) - objectiveAngle + 360)%360 < TOLERANCE_ANGLE;

@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import dev.astrolabe.AstrolabeController;
+import dev.utils.Log;
 
 public class StaticCelestialBodyViewListener implements MouseListener {
 
@@ -20,20 +21,26 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		setupListener(e);
 		
-		astrolabeController.setSelected(celest.getModel());
+		if (e.getClickCount() == 1) {
+			astrolabeController.setSelected(celest.getModel());
+
+			//update displayed data
+			astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
+			
+			//repainting
+			astrolabeController.paintCelestialBody(celest);
+		}
+		if (e.getClickCount() == 2) {
+			astrolabeController.setRuleRotation(astrolabeController.getReteRotation() + Math.atan2(celest.getView().getOrdinate(), celest.getView().getAbscissa()));
+			astrolabeController.getView().repaint();
+		}
 		
 		//TODO implement mission testing
 		astrolabeController.getAstrolabeMainController().test_mission.checkCurrentOrderedStepCompletion(astrolabeController.getStateModel());
 		astrolabeController.getAstrolabeMainController().test_mission.checkUnorderedStepCompletion(astrolabeController.getStateModel());
 		astrolabeController.getAstrolabeMainController().getMissionController().getView().repaint();
 
-		//update displayed data
-		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
-		
-		//repainting
-		astrolabeController.paintCelestialBody(celest);
-
-		System.out.println(((CelestialBodyView) e.getSource()).getController().getModel().getName());
+		Log.log((((CelestialBodyView) e.getSource()).getController().getModel().getName()),this);;
 	}
 
 	public void mouseEntered(MouseEvent e) {

@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import javax.swing.JPanel;
 
 import dev.astrolabe.part.rete.ReteController;
+import dev.astrolabe.part.rule.RuleController;
 import dev.astrolabe.part.tympan.TympanController;
 import dev.sky.CelestialBodyController;
 import dev.sky.CelestialBodyHandler;
@@ -28,6 +29,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	
 	private TympanController tympanController;
 	private ReteController reteController;
+	private RuleController ruleController;
 	
 	JPanel background;
 		
@@ -48,7 +50,8 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		CelestialBodyController.setAstrolabeController(this);
 				
 		tympanController = new TympanController(this);
-		setReteController(new ReteController(this));
+		reteController = new ReteController(this);
+		ruleController = new RuleController(this);
 		
 		background = new JPanel();
 		
@@ -78,7 +81,8 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		updateBackgroundColor();
 		view.add(background,new Integer(0),0);
 		view.add(tympanController.getView(),new Integer(1),0);
-		view.add(getReteController().getView(),new Integer(2),0);
+		view.add(reteController.getView(),new Integer(2),0);
+		view.add(ruleController.getView(), new Integer(3),0);
 		view.revalidate();
 	}
 
@@ -97,7 +101,8 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 			
 			background.setBounds(view.getVisibleRect());
 			tympanController.getView().setBounds(view.getVisibleRect());
-			getReteController().getView().setBounds(view.getVisibleRect());
+			reteController.getView().setBounds(view.getVisibleRect());
+			ruleController.getView().setBounds(view.getVisibleRect());
 		}	
 	}
 
@@ -272,5 +277,21 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		this.styleModel = styleModel;
 		tympanController.setModels();
 		reteController.setModels();
+		ruleController.setModels();
 	}
+
+	public double getRuleRotation() {
+		return stateModel.getRuleRotation();
+	}
+	
+
+	public void setRuleRotation(double ruleRotation) {
+		stateModel.setRuleRotation(ruleRotation);
+	}
+
+
+	public boolean closeToRule(Point p) {
+		return Math.abs(Math.atan2(p.y-getAstrolabeCenter().y, p.x-getAstrolabeCenter().x) - getRuleRotation()) < Math.toRadians(4); //TODO make this tolerance constant
+	}
+
 }

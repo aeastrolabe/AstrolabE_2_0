@@ -21,7 +21,10 @@ public class StarSelectedStep extends Step {
 	
 	@Override
 	public boolean success(AstrolabeStateModel stateModel) {
-		return completed || starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName());
+		return completed || 
+				(stateModel.getSelectedCelestialBody() != null &&
+				starToSelect.getModel().getName().equals(stateModel.getSelectedCelestialBody().getName()));
+		
 	}
 
 	@Override

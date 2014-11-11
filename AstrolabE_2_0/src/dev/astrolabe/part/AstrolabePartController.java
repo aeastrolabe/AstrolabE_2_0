@@ -88,7 +88,7 @@ public abstract class AstrolabePartController extends Controller {
 	public void initRuleView(Graphics2D g2) {
 		g2.translate(astrolabeController.getAstrolabeCenter().x, astrolabeController.getAstrolabeCenter().y);
 		g2.scale(astrolabeController.getAstrolabeScale(), astrolabeController.getAstrolabeScale());
-		g2.rotate(astrolabeController.getReteRotation());
+		g2.rotate(astrolabeController.getRuleRotation());
 	}
 	
 }
