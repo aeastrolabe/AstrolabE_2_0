@@ -13,6 +13,7 @@ import dev.mission.StarSelectedStep;
 import dev.mission.SunDisplayedStep;
 import dev.mission.ui.MissionController;
 import dev.options.LatitudeSliderController;
+import dev.sky.Constellation;
 import dev.sky.datadisplay.CelestialBodyDataDisplayController;
 import dev.sky.statik.Star;
 import dev.struct.Controller;
@@ -40,7 +41,7 @@ public class AstrolabeMainController extends Controller {
 		astrolabeController = new AstrolabeController(this);
 		
 		test_mission = new Mission();
-		test_mission.addOrderedStep(new StarSelectedStep(new Star("Sirius")));
+		test_mission.addOrderedStep(new StarSelectedStep(Constellation.get("Sirius")));
 		test_mission.addOrderedStep(new SunDisplayedStep(true));
 		test_mission.addUnorderedStep(new RuleRotatedAligningStep(new Star("Sirius")));
 		test_mission.addUnorderedStep(new StarSelectedStep(new Star("Aldébaran")));

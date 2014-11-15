@@ -15,7 +15,7 @@ public class ReteRotatedStep extends Step {
 
 	@Override
 	public String help() {
-		return "Left-click on the rete";
+		return "Left-click on the rete and drag it";
 	}
 
 	@Override

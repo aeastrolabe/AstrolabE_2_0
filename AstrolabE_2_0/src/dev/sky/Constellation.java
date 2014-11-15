@@ -85,7 +85,17 @@ public class Constellation  {
 		return name;
 	}
 	
-
+	public static Star get(String name) {
+		for (Constellation c : constellationList) {
+			for(CelestialBodyController b : c.getStarList()) {
+				if (b.getModel().getName().equals(name)) {
+					return (Star) b;
+				}
+			}
+		}
+		System.err.println(name + "does not exist");
+		return null;
+	}
 	
 
 }

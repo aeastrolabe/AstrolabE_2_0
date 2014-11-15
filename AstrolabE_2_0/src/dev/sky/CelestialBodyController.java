@@ -36,7 +36,10 @@ public abstract class CelestialBodyController {
 		return model;
 	}
 	
-
+	
+	public void addToAstrolabeView() {
+		CelestialBodyController.getAstrolabeController().getView().add(view,0);
+	}
 	
 	public boolean isDisplayed() {
 		return displayed;

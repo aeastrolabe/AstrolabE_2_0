@@ -36,7 +36,6 @@ public class CelestialBodyView extends JPanel  {
 	
 	public CelestialBodyView(CelestialBodyController celestialBodyController) {
 		controller = celestialBodyController;
-		CelestialBodyController.getAstrolabeController().getView().add(this,0);
 	}
 
 	public double getAbscissa() {

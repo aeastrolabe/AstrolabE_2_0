@@ -3,7 +3,6 @@ package dev.astrolabe;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
@@ -56,6 +55,9 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		background = new JPanel();
 		
 		createGUI();
+		
+		addStarsToView();
+		addPlanetsToView();
 		
 		AstrolabeViewListener listener = new AstrolabeViewListener(this);
 		
@@ -215,28 +217,6 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 //			}
 //		}
 	}
-	
-	@Override
-	public void drawAllStars(Graphics2D g) {
-		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
-		CelestialBodyController s;
-		while (iterc.hasNext()){
-			Constellation c = iterc.next();
-			for(Object o : c.getStarList().toArray()) {
-				s = (CelestialBodyController) o;
-				if (s.isDisplayed()) {
-					s.getView().draw(g);
-				}
-			}
-		}
-	}
-	
-	@Override
-	public void paintCelestialBody(CelestialBodyController c) {
-		if (c.isDisplayed()) {
-			c.getView().repaint();
-		}
-	}
 
 	/**
 	 * @return the astrolabeMainController
@@ -252,10 +232,51 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		this.astrolabeMainController = astrolabeMainController;
 	}
 
+	public void addStarsToView() {
+		CelestialBodyController s;
+		for(Constellation c : Constellation.getConstellationList()) {
+			for(Object o : c.getStarList()) {
+				s = (CelestialBodyController) o;
+				if (s.isDisplayed()) {
+					s.addToAstrolabeView();
+				}
+			}
+		}
+	}
+	
+
+	private void addPlanetsToView() {
+		for(CelestialBodyController b : Planet.planetList) {
+			if (b.isDisplayed()) {
+				b.addToAstrolabeView();
+			}
+		}
+	}
+	
+	@Override
+	public void drawAllStars(Graphics2D g) {
+		CelestialBodyController s;
+		for(Constellation c : Constellation.getConstellationList()) {
+			for(Object o : c.getStarList()) {
+				s = (CelestialBodyController) o;
+				if (s.isDisplayed()) {
+					s.getView().draw(g);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void paintCelestialBody(CelestialBodyController c) {
+		if (c.isDisplayed()) {
+			c.getView().repaint();
+		}
+	}
+	
 	@Override
 	public void drawPlanets(Graphics2D g) {
 		CelestialBodyController s;
-		for(Object o : Planet.planetList.toArray()) {
+		for(Object o : Planet.planetList) {
 			s = (CelestialBodyController) o;
 			if (s.isDisplayed()) {
 				s.getView().draw(g);

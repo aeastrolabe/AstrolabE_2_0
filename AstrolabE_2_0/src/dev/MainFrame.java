@@ -37,11 +37,10 @@ public class MainFrame extends JFrame {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		astrolabeMainController = new AstrolabeMainController();
-		
 		ImportCelestialData.getStarsShort();
-//		ImportCelestialData.getStars();
 		Planet.importPlanets();
+		
+		astrolabeMainController = new AstrolabeMainController();
 		
 		initMenuBar();
 		
