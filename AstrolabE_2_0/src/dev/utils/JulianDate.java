@@ -13,6 +13,31 @@ public class JulianDate {
   // Gregorian Calendar adopted Oct. 15, 1582 (2299161)
   public static int JGREG= 15 + 31*(10+12*1582);
   public static double HALFSECOND = 0.5;
+  
+  public static double dateJulienne(double jour, int mois, int annee) {
+		int a,m,siecle,correction;
+			if (mois>2) {
+				a = annee;
+				m = mois;
+			}
+			else {
+				a = annee-1;
+				m = mois+12;
+			}
+			if ((annee + mois/100 + jour/10000) >= 1582.1015) {
+				siecle = (a/100);
+				correction = 2 - (siecle) + (siecle/4);
+			}
+			else {
+				correction=0;
+			}
+			if (annee>0) {
+		      return ((int) (365.25*a) + (int) (30.6001*(m + 1)) + jour + 1720994.5 + correction);
+			}
+			else {
+		      return ((int) (365.25*a - 0.75) + (int) (30.6001*(m + 1)) + jour + 1720994.5 + correction);
+			}
+	}
 
   public static double toJulian(int[] ymd) {
    int year=ymd[0];

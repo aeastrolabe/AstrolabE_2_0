@@ -12,7 +12,7 @@ public class AstrolabeHomeplanetModel {
 	 * Calendar in planet days with common origin the ***** TODO !!!
 	 */
 	
-	private static int year = 0;
+	private static int year = setYear();
 	
 	private static int month = Calendar.MONTH;
 	
@@ -21,7 +21,7 @@ public class AstrolabeHomeplanetModel {
 	/**
 	 * @return the year
 	 */
-	public static int getYear() {
+	public static int setYear() {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -29,11 +29,8 @@ public class AstrolabeHomeplanetModel {
 		return year;
 	}
 
-	/**
-	 * @param year the year to set
-	 */
-	public static void setYear(int year) {
-		AstrolabeHomeplanetModel.year = year;
+	public static int getYear() {
+		return year;
 	}
 
 	/**
