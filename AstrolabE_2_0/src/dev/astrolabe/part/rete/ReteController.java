@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 
 import dev.astrolabe.AstrolabeController;
 import dev.astrolabe.AstrolabeHomeplanetModel;
@@ -45,7 +46,80 @@ public class ReteController extends AstrolabePartController {
 		astrolabeController.drawPlanets(g);
 	}
 	
-	public void drawGraduations(Graphics2D g) {
+	public void drawSun(Graphics2D g) {
+		astrolabeController.drawSun(g);
+	}
+	
+	//TODO this works only in N hemisphere
+	public void drawGraduationsOnEcliptic(Graphics2D g) {
+		
+		double x = getXecliptic();
+		double R = getRecliptic();
+				
+		double dr_limbe = astrolabeController.getStateModel().LIMBE_PADDING;
+
+		int year = AstrolabeHomeplanetModel.getYear();
+		
+		g.rotate(Math.toRadians(EQT()));      //+ ou - EQT
+		g.setColor(styleModel.getEclipticColor());
+
+		//##############
+		g.rotate(-Math.PI/2);
+		//##############
+		
+		double angle = 0;
+		double d_angle = 0.5;
+
+		double alpha_s_old = 0;
+		double trait, tick;
+		for(int i_month = 1; i_month <= 12 ; i_month++) {
+			for(int i_day = 1; i_day <= dayInMonth(i_month); i_day++) {
+				d_angle = alphaSoleil(i_day, i_month, year)-alpha_s_old;
+				angle += d_angle;
+				alpha_s_old = alphaSoleil(i_day, i_month, year);
+				d_angle = (d_angle+360)%360;
+				g.rotate(-Math.toRadians(d_angle));
+				
+				double t = Math.toRadians(angle-EQT()); //+ ou - EQT
+				double delta = (x*Math.sin(t))*(x*Math.sin(t))-(x*x - R*R);
+				double r = (x*Math.sin(t) + Math.sqrt(delta));
+				
+				if (i_day==1) {
+					tick = dr_limbe/2;
+					trait = 2;
+				}
+				else {
+					if (i_day%10==0) {
+						tick = dr_limbe/4;
+					}
+					else {
+						tick = dr_limbe/8;
+					}
+				trait=1;
+				}
+				if (i_day == 1 && i_month == 1) {
+					g.setColor(Color.magenta);
+					g.fillOval(-(int)r-5, -5, 10, 10);
+				}
+				if (i_day == 1 && i_month == 2) {
+					g.setColor(Color.pink);
+					g.fillOval(-(int)r-5, -5, 10, 10);
+				}
+				
+				g.setStroke(new BasicStroke((float) trait, BasicStroke.CAP_SQUARE,
+		                BasicStroke.JOIN_MITER, 10.0f));				
+				g.draw(new Line2D.Double(-((r-tick/2)),0, -((r+tick/2)),0));				
+			}
+		}
+		g.rotate(Math.toRadians(alphaSoleil(31, 12, year)));
+		g.rotate(Math.toRadians(EQT()));
+		//###############
+		g.rotate(Math.PI/2);
+		//###############
+	}
+	
+	@Deprecated
+	public void drawMonthsOnEcliptic(Graphics2D g) {
 		String[] months = new String[] {
 				"January",
 				"February",
@@ -63,17 +137,18 @@ public class ReteController extends AstrolabePartController {
 		double x = getXecliptic();
 		double R = getRecliptic();
 		
+		int year = AstrolabeHomeplanetModel.getYear();
+		
 		Graphics2D g2D = (Graphics2D) g;
 		int sens = localisationModel.getHemisphere();
 		
 		double dr_limbe = astrolabeController.getStateModel().LIMBE_PADDING;
 		g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_SQUARE,
                 BasicStroke.JOIN_MITER, 10.0f));
-		g2D.setColor(Color.black);
 		g2D.rotate(sens*positionSoleil(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear())[3]*Math.PI/180);      //+ ou - EQT
 			//Trace des graduations d'ascension droite :
-		g2D.setColor(Color.RED);
-		
+		g2D.setColor(styleModel.getEclipticColor());
+
 		//##############
 //		g2D.rotate(Math.PI);
 		//##############
@@ -86,14 +161,13 @@ public class ReteController extends AstrolabePartController {
 		double trait, tick;
 		for (int i_mois=1;i_mois<=12;i_mois++) {
 			for (int i_jour=1;i_jour<=dayInMonth(i_mois);i_jour++) {
-				g2D.setColor(Color.orange);
-				d_angle=positionSoleil(i_jour, i_mois, AstrolabeHomeplanetModel.getYear())[1]-alpha_s_old;
+				d_angle=positionSoleil(i_jour, i_mois, year)[1]-alpha_s_old;
 				angle+=d_angle;
-				alpha_s_old=positionSoleil(i_jour, i_mois, AstrolabeHomeplanetModel.getYear())[1];
+				alpha_s_old=alphaSoleil(i_jour, i_mois, year);
 				d_angle=(d_angle+360)%360;
 				g2D.rotate(-sens*d_angle*Math.PI/180);
 				
-				double t = (angle-positionSoleil(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear())[3])/180.*Math.PI+Math.PI/2; //+ ou - EQT
+				double t = (angle-EQT())/180.*Math.PI+Math.PI/2; //+ ou - EQT
 				double delta = (x*Math.cos(t))*(x*Math.cos(t))
 						-(x*x - R*R);
 				double r = (x*Math.cos(t) + Math.sqrt(delta));
@@ -106,7 +180,6 @@ public class ReteController extends AstrolabePartController {
 					if (i_jour%10==0) {
 						tick=dr_limbe/4;
 						g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (2*6)));
-						g2D.setColor(new Color(233,148,0));
 						g2D.translate(0,-r);
 						double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_mois>=6 ? -1 : 1);
 						g2D.rotate(-theta);
@@ -128,7 +201,6 @@ public class ReteController extends AstrolabePartController {
 				
 				if (i_jour==15) {
 					g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (2*8)));
-					g2D.setColor(new Color(233,148,0));
 					g2D.translate(0,-r);
 					double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_mois>=6 ? -1 : 1);
 					g2D.rotate(-theta);
@@ -149,12 +221,13 @@ public class ReteController extends AstrolabePartController {
 		//###############
 	}
 	
+	
 	public int dayInMonth(int m) {
 		int[] c = {31,28,31,30,31,30,31,31,30,31,30,31};
 		return c[m-1];
 	}
 	
-	public static double[] positionSoleil(int jour, int mois, int annee) {
+	private static double[] positionSoleil(int jour, int mois, int annee) {
 		double jdo = JulianDate.dateJulienne(1.5, 1, 2000);
 		double jd = JulianDate.dateJulienne(jour, mois, annee)+0.5;
 		double t=(jd-jdo)/365250;
@@ -192,5 +265,28 @@ public class ReteController extends AstrolabePartController {
 		}
 		return new double[] {lambda, alpha, delta, EQT};
 	}
+	
+	public static double lambdaSoleil(int day, int month, int year) {
+		return positionSoleil(day, month, year)[0];
+	}
+	
+	public static double alphaSoleil(int day, int month, int year) {
+		return positionSoleil(day, month, year)[1];
+	}
+	
+	public static double deltaSoleil(int day, int month, int year) {
+		return positionSoleil(day, month, year)[2];
+	}
+
+	public static double EQT(int day, int month, int year) {
+		return positionSoleil(day, month, year)[3];
+	}
+	
+	public static double EQT() {
+		return 0;
+//		return EQT(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear());
+	}
+
+	
 	
 }

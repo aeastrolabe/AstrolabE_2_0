@@ -15,6 +15,8 @@ public interface CelestialBodyHandler {
 	void drawAllStars();
 
 	void drawAllStars(Graphics2D g);
+
+	void drawSun(Graphics2D g);
 	
 //	private CelestialBodyController selected;
 //

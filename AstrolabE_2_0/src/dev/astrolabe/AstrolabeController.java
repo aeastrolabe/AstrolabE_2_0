@@ -13,6 +13,7 @@ import dev.sky.CelestialBodyController;
 import dev.sky.CelestialBodyHandler;
 import dev.sky.CelestialBodyModel;
 import dev.sky.Constellation;
+import dev.sky.dynamik.geocentric.Sun;
 import dev.sky.dynamik.heliocentric.Planet;
 import dev.struct.Controller;
 
@@ -58,6 +59,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		
 		addStarsToView();
 		addPlanetsToView();
+		addSunToView();
 		
 		AstrolabeViewListener listener = new AstrolabeViewListener(this);
 		
@@ -253,6 +255,11 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		}
 	}
 	
+
+	private void addSunToView() {
+		Sun.sun.addToAstrolabeView();
+	}
+	
 	@Override
 	public void drawAllStars(Graphics2D g) {
 		CelestialBodyController s;
@@ -281,6 +288,13 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 			if (s.isDisplayed()) {
 				s.getView().draw(g);
 			}
+		}
+	}
+	
+	@Override
+	public void drawSun(Graphics2D g) {
+		if (stateModel.isSunDisplayed()) {
+			Sun.sun.getView().draw(g);
 		}
 	}
 

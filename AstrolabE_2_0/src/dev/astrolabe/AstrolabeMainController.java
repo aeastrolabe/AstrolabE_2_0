@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
+import dev.astrolabe.ui.DisplaySunController;
+import dev.astrolabe.ui.LockRuleController;
 import dev.mission.Mission;
 import dev.mission.RuleRotatedAligningStep;
 import dev.mission.StarSelectedStep;
@@ -31,6 +33,10 @@ public class AstrolabeMainController extends Controller {
 	
 	private CelestialBodyDataDisplayController CBDDcontroller;
 	
+	private LockRuleController lockRuleController;
+	
+	private DisplaySunController sunDisplayController;
+	
 	
 	JPanel top = new JPanel();
 	JPanel side = new JPanel();
@@ -46,9 +52,13 @@ public class AstrolabeMainController extends Controller {
 		test_mission.addUnorderedStep(new RuleRotatedAligningStep(new Star("Sirius")));
 		test_mission.addUnorderedStep(new StarSelectedStep(new Star("Aldébaran")));
 		
-		setMissionController(new MissionController(test_mission));
+		missionController = new MissionController(test_mission);
 		
-		setCBDDcontroller(new CelestialBodyDataDisplayController(this));
+		CBDDcontroller = new CelestialBodyDataDisplayController(this);
+		
+		lockRuleController = new LockRuleController(astrolabeController);
+		
+		sunDisplayController = new DisplaySunController(astrolabeController);
 		
 		createGUI();
 	}
@@ -73,6 +83,8 @@ public class AstrolabeMainController extends Controller {
 		side.add(ltc.getView());
 		side.add(missionController.getView());
 		side.add(CBDDcontroller.getView());
+		side.add(lockRuleController.getView());
+		side.add(sunDisplayController.getView());
 		
 		view.add(astrolabe,BorderLayout.CENTER);
 		view.add(top, BorderLayout.NORTH);

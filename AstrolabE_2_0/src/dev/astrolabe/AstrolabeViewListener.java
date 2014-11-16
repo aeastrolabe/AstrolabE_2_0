@@ -75,10 +75,16 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 		if (e.getButton() == ROTATION_BUTTON && !astrolabeController.closeToRule(savedMousePosition)) {
 			rotatingPart = RETE_ROTATING;
 			savedReteRotation = astrolabeController.getReteRotation();
+			if (astrolabeController.getStateModel().isRuleLocked()) {
+				savedRuleRotation = astrolabeController.getRuleRotation();
+			}
 		}
 		if (e.getButton() == ROTATION_BUTTON && astrolabeController.closeToRule(savedMousePosition)) {
 			rotatingPart = RULE_ROTATING;
 			savedRuleRotation = astrolabeController.getRuleRotation();
+			if (astrolabeController.getStateModel().isRuleLocked()) {
+				savedReteRotation = astrolabeController.getReteRotation();
+			}
 		}
 	}
 
@@ -98,6 +104,9 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 			double anglef = Math.atan2(currentMousePosition.y - astrolabeController.getAstrolabeCenter().y,
 					currentMousePosition.x - astrolabeController.getAstrolabeCenter().x);
 			astrolabeController.setReteRotation(anglef-anglei+savedReteRotation);
+			if (astrolabeController.getStateModel().isRuleLocked()) {
+				astrolabeController.setRuleRotation(anglef-anglei+savedRuleRotation);
+			}
 		}
 		if (pressedButton == ROTATION_BUTTON && rotatingPart == RULE_ROTATING) {
 			double anglei = Math.atan2(savedMousePosition.y - astrolabeController.getAstrolabeCenter().y,
@@ -105,6 +114,9 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 			double anglef = Math.atan2(currentMousePosition.y - astrolabeController.getAstrolabeCenter().y,
 					currentMousePosition.x - astrolabeController.getAstrolabeCenter().x);
 			astrolabeController.setRuleRotation(anglef-anglei+savedRuleRotation);
+			if (astrolabeController.getStateModel().isRuleLocked()) {
+				astrolabeController.setReteRotation(anglef-anglei+savedReteRotation);
+			}
 		}
 		astrolabeController.getView().repaint();
 	}

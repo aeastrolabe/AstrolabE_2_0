@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Arrays;
 
 import dev.io.ImportData;
+import dev.io.ImportImage;
 import dev.sky.dynamik.heliocentric.HeliocentricDynamicCelestialBody;
 
 
@@ -35,8 +36,10 @@ public class Sun extends HeliocentricDynamicCelestialBody {
 		ea = sun_data[9];
 		Mb = sun_data[10];
 		Ma = sun_data[11];
-
-		displayed = true;
+		
+		model.setMagnitude(-5);
+		
+		view.image = ImportImage.read("stars/sun.png");
 	}
 	
 	public static double sunLongitude(double d) {
@@ -91,5 +94,27 @@ public class Sun extends HeliocentricDynamicCelestialBody {
 		
 		return result;
 	}
+	
+//	public void paintSun(Graphics2D g) {
+//		if (astrolabeController.getStateModel().isSunDisplayed()) {
+//			double t = astrolabeController.getStateModel().getRuleRotation() - astrolabeController.getStateModel().getReteRotation()
+//					+Math.PI
+//					;
+////			AstrolabeModel astrolabe = AstrolabeModel.getModel();
+//			double x = getXecliptic();
+//			double R = getRecliptic();
+//			double delta = (x*Math.cos(t))*(x*Math.cos(t))
+//					-(x*x-R*R);
+//			double r = (x*Math.cos(t)+
+//					Math.sqrt(delta));
+//			g.setColor(Color.red);
+//			double t2 = astrolabeController.getStateModel().getRuleRotation() ;
+//			int size = 16;
+//			g.drawImage(sun,(int) (x+r*Math.cos(t2)-size),
+//					(int) (0+r*Math.sin(t2)-size), 2*size,2*size,null);
+//			/*g.fillOval((int) (centreAstrolabe.getX()+move_x+r*Math.cos(t2)-size),
+//					(int) (centreAstrolabe.getY()+move_y+r*Math.sin(t2)-size), 2*size,2*size);*/
+//		}
+//	}
 	
 }

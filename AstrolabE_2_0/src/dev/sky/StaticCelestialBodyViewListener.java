@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import dev.astrolabe.AstrolabeController;
+import dev.sky.dynamik.geocentric.Sun;
 import dev.utils.Log;
 
 public class StaticCelestialBodyViewListener implements MouseListener {
@@ -20,6 +21,9 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	
 	public void mouseClicked(MouseEvent e) {
 		setupListener(e);
+		if (celest == null) {
+			return;
+		}
 		
 		if (e.getClickCount() == 1) {
 			astrolabeController.setSelected(celest.getModel());
@@ -45,6 +49,9 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 
 	public void mouseEntered(MouseEvent e) {
 		setupListener(e);
+		if (celest == null) {
+			return;
+		}
 		
 		//display information
 		astrolabeController.getStateModel().setHighlightedCelestialBody(celest.getModel());
@@ -60,6 +67,10 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	}
 
 	public void mouseExited(MouseEvent e) {
+		if (celest == null) {
+			return;
+		}
+		
 		//discard information
 		astrolabeController.getStateModel().setHighlightedCelestialBody(null);
 		astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
@@ -69,6 +80,8 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 		
 		//repainting
 		astrolabeController.paintCelestialBody(celest);
+		
+		celest = null;
 	}
 
 	public void mousePressed(MouseEvent arg0) {
@@ -92,7 +105,9 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	}
 
 	private void setupListener(MouseEvent e) {
-		celest = ((CelestialBodyView) e.getSource()).getController();
+		if (((CelestialBodyView) e.getSource()).getController() != Sun.sun) {
+			celest = ((CelestialBodyView) e.getSource()).getController();
+		}
 	}
 	
 }

@@ -24,6 +24,8 @@ public class AstrolabeStateModel {
 	public final double LIMBE_PADDING = 30;
 	public final double TYMPAN_PADDING = 20;
 	
+	private boolean ruleLocked = false;
+	
 	private boolean sunDisplayed = false;
 	
 	private CelestialBodyModel selectedCelestialBody;
@@ -92,6 +94,10 @@ public class AstrolabeStateModel {
 	public void setSunDisplayed(boolean sunDisplayed) {
 		this.sunDisplayed = sunDisplayed;
 	}
+	
+	public void toggleSunDisplayed() {
+		sunDisplayed = !sunDisplayed;
+	}
 
 	/**
 	 * @return the selectedCelestialBody
@@ -113,6 +119,24 @@ public class AstrolabeStateModel {
 
 	public void setHighlightedCelestialBody(CelestialBodyModel highlightedCelestialBody) {
 		this.highlightedCelestialBody = highlightedCelestialBody;
+	}
+
+	/**
+	 * @return the ruleLocked
+	 */
+	public boolean isRuleLocked() {
+		return ruleLocked;
+	}
+
+	/**
+	 * @param ruleLocked the ruleLocked to set
+	 */
+	public void setRuleLocked(boolean ruleLocked) {
+		this.ruleLocked = ruleLocked;
+	}
+	
+	public void toggleRuleLocked() {
+		this.ruleLocked = !ruleLocked;
 	}
 
 }

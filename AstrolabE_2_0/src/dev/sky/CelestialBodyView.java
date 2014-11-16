@@ -83,8 +83,6 @@ public class CelestialBodyView extends JPanel  {
 	public void draw(Graphics2D g) {
 		setCoordinates();
 		repaint();
-		
-//		CelestialBodyController.getAstrolabeController().getView().repaint(); TODO this keeps drawing and adds lag
 	}
 	
 	public void drawCelestialBody(Graphics2D g) {
@@ -93,6 +91,7 @@ public class CelestialBodyView extends JPanel  {
 	}
 	
 	public void paint(Graphics g) {
+		//This is necessary when hovering over the body
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				setCoordinates();
