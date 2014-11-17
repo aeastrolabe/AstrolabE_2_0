@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 
 import dev.astrolabe.AstrolabeController;
 import dev.struct.Controller;
@@ -30,19 +29,10 @@ public class DisplaySunController extends Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						astrolabeController.getStateModel().toggleSunDisplayed();
-						astrolabeController.toggleSunAdded();
-						toggleDisplaySunButton.setText("Sun displayed : "+astrolabeController.getStateModel().isSunDisplayed());
-						astrolabeController.getView().repaint();
-					}
-				});
-				
-
-				
+				astrolabeController.getStateModel().toggleSunDisplayed();
+				astrolabeController.toggleSunAdded();
+				toggleDisplaySunButton.setText("Sun displayed : "+astrolabeController.getStateModel().isSunDisplayed());
+				astrolabeController.getView().repaint();
 			}
 		});
 		view.add(toggleDisplaySunButton);

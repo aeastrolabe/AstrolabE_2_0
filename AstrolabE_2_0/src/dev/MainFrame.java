@@ -47,13 +47,9 @@ public class MainFrame extends JFrame {
 		initContentPane();
 		
 		pack();
-		menuBar.repaint();
-		
-		//TODO temporarily replaced by key accelerators
-//		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-//        manager.addKeyEventDispatcher(new KeyboardListener(this));
 		
 		setVisible(true);
+		repaint();
 	}
 	
 	private void initMenuBar() {

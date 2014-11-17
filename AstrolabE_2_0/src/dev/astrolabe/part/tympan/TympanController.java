@@ -190,7 +190,7 @@ public class TympanController extends AstrolabePartController {
 	public void drawCardinalPoints(Graphics2D g) {
 		int r1 = (int) (astrolabeController.getAstrolabeInternalRadius()*1.05);
 		g.setColor(Color.WHITE);
-		g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (2*7)));
+		g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
 		int dx = -4;
 		
 		if (localisationModel.getHemisphere() < 0) {
@@ -212,6 +212,7 @@ public class TympanController extends AstrolabePartController {
 		}
 	}
 	
+	//TODO rewrite this
 	public void drawLimbe(Graphics2D g) {
 		g.setColor(Color.black);
 		g.setStroke(AstrolabeStroke.newStroke(AstrolabeStroke.THIN, AstrolabeStroke.SOLID));
@@ -222,7 +223,7 @@ public class TympanController extends AstrolabePartController {
 		double R_inf = astrolabeController.getAstrolabeInternalRadius() + astrolabeController.getStateModel().TYMPAN_PADDING;
 		double R_sup = astrolabeController.getAstrolabeRadius();
 		
-		double epaisseurLimbeEpais = 1;
+		double epaisseurLimbeEpais = 2;
 		double epaisseurLimbeFin = 1;
 		
 		g.setStroke(new BasicStroke(1, BasicStroke.CAP_SQUARE,
@@ -250,14 +251,12 @@ public class TympanController extends AstrolabePartController {
 					g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (trait*6)));
 					g.rotate(-angle_rad);
 					g.translate(0, -R_inf-dr_limbe/2);
-					//g2D.drawString(Double.toString((int) (angle/15)+6), (int) (R_mil1+dr_limbe/2), 3);
 					g.drawString(Integer.toString((int) (angle/15+24-(localisationModel.getHemisphere()*6))%24), 5, 0);
 					g.translate(0, R_inf+dr_limbe/2);
 					g.rotate(angle_rad);
 					g.setFont(new Font(Font.SANS_SERIF,Font.BOLD, (int) (trait*3)));
 					g.rotate(-angle_rad);
 					g.translate(0, -R_inf-dr_limbe/2);
-					//g2D.drawString(Double.toString((int) (angle/15)+6), (int) (R_mil1+dr_limbe/2), 3);
 					g.drawString("h", (int) (5+epaisseurLimbeEpais*8), -(int) (epaisseurLimbeEpais*2));
 					g.translate(0, R_inf+dr_limbe/2);
 					g.rotate(angle_rad);

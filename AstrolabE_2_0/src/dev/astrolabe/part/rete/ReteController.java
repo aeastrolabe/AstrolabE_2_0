@@ -90,6 +90,13 @@ public class ReteController extends AstrolabePartController {
 				else {
 					if (i_day%10==0) {
 						tick = dr_limbe/4;
+						g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,6));
+						g.translate(-r,0);
+						double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R)) - Math.PI/2;
+						g.rotate(+theta);
+						g.drawString(Integer.toString(i_day), -5, -5);
+						g.rotate(-theta);
+						g.translate(r,0);
 					}
 					else {
 						tick = dr_limbe/8;
@@ -103,13 +110,12 @@ public class ReteController extends AstrolabePartController {
 			}
 		}
 		g.rotate(Math.toRadians(alphaSoleil(31, 12, year)));
-		g.rotate(Math.toRadians(EQT()));
+		g.rotate(-Math.toRadians(EQT()));
 		//###############
 		g.rotate(Math.PI/2);
 		//###############
 	}
 	
-	@Deprecated
 	public void drawMonthsOnEcliptic(Graphics2D g) {
 		String[] months = new String[] {
 				"January",
@@ -127,88 +133,48 @@ public class ReteController extends AstrolabePartController {
 		
 		double x = getXecliptic();
 		double R = getRecliptic();
-		
 		int year = AstrolabeHomeplanetModel.getYear();
 		
-		Graphics2D g2D = (Graphics2D) g;
-		int sens = localisationModel.getHemisphere();
-		
-		double dr_limbe = astrolabeController.getStateModel().LIMBE_PADDING;
-		g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_SQUARE,
-                BasicStroke.JOIN_MITER, 10.0f));
-		g2D.rotate(sens*positionSoleil(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear())[3]*Math.PI/180);      //+ ou - EQT
-			//Trace des graduations d'ascension droite :
-		g2D.setColor(styleModel.getEclipticColor());
+		g.rotate(Math.toRadians(EQT()));      //+ ou - EQT
+		g.setColor(styleModel.getEclipticColor());
 
 		//##############
-//		g2D.rotate(Math.PI);
+		g.rotate(Math.PI);
 		//##############
 		
 		double angle=0;
 		double d_angle = 0.5;
-		//int n_angle = (int) (360./d_angle);
 
-		double alpha_s_old=0;
-		double trait, tick;
-		for (int i_mois=1;i_mois<=12;i_mois++) {
-			for (int i_jour=1;i_jour<=dayInMonth(i_mois);i_jour++) {
-				d_angle=positionSoleil(i_jour, i_mois, year)[1]-alpha_s_old;
+		double alpha_s_old = 0;
+		for (int i_month = 1; i_month <= 12; i_month++) {
+			for (int i_day = 1; i_day <= dayInMonth(i_month); i_day++) {
+				d_angle=positionSoleil(i_day, i_month, year)[1]-alpha_s_old;
 				angle+=d_angle;
-				alpha_s_old=alphaSoleil(i_jour, i_mois, year);
+				alpha_s_old=alphaSoleil(i_day, i_month, year);
 				d_angle=(d_angle+360)%360;
-				g2D.rotate(-sens*d_angle*Math.PI/180);
+				g.rotate(-Math.toRadians(d_angle));
 				
-				double t = (angle-EQT())/180.*Math.PI+Math.PI/2; //+ ou - EQT
+				double t = (angle-EQT())/180.*Math.PI-Math.PI/2; //+ ou - EQT
 				double delta = (x*Math.cos(t))*(x*Math.cos(t))
 						-(x*x - R*R);
 				double r = (x*Math.cos(t) + Math.sqrt(delta));
-				
-				if (i_jour==1) {
-					tick = dr_limbe/2;
-					trait=2;
-				}
-				else {
-					if (i_jour%10==0) {
-						tick=dr_limbe/4;
-						g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (2*6)));
-						g2D.translate(0,-r);
-						double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_mois>=6 ? -1 : 1);
-						g2D.rotate(-theta);
-						g2D.drawString(Integer.toString(i_jour), -2*2, -(int)(dr_limbe/4)+2);
-						g2D.rotate(theta);
-						g2D.translate(0, r);
-						
-					}
-					else {
-						tick=dr_limbe/8;
-					}
-				trait=1;
-				}
-				g2D.setStroke(new BasicStroke((float) trait, BasicStroke.CAP_SQUARE,
-		                BasicStroke.JOIN_MITER, 10.0f));
-				//g2D.drawLine( 0,-(int) ((R_mil1-tick)),0, -(int) ((R_mil1)));
-				
-				g2D.drawLine(0, -(int) ((r-tick/2)),0, -(int) ((r+tick/2)));
-				
-				if (i_jour==15) {
-					g2D.setFont(new Font(Font.SANS_SERIF,Font.BOLD,(int) (2*8)));
-					g2D.translate(0,-r);
-					double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_mois>=6 ? -1 : 1);
-					g2D.rotate(-theta);
-					g2D.drawString(months[i_mois-1], -months[i_mois-1].length()*2,-(int) (dr_limbe/2+2*3));	
-					g2D.rotate(theta);
-					g2D.translate(0, r);
-					//g2D.drawString(astrolabe.getMonthTab()[i_mois-1], -astrolabe.getMonthTab()[i_mois-1].length()*epaisseurLimbeEpais,-(int) (r+dr_limbe)+epaisseurLimbeEpais*2);	
-					//g2D.drawRect((int) (-astrolabe.getMonthTab()[i_mois-1].length()*epaisseurLimbeEpais),-(int) (r+dr_limbe+epaisseurLimbeEpais*2),50,10);
+
+				if (i_day==15) {
+					g.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
+					g.translate(0,-r);
+					double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_month>=6 ? -1 : 1);;
+					g.rotate(-theta);
+					g.drawString(months[i_month-1], -10*months[i_month-1].length()/2, 20);	
+					g.rotate(+theta);
+					g.translate(0, r);
 				}
 				
 			}
 		}
-		g2D.rotate(sens*positionSoleil(31, 12, AstrolabeHomeplanetModel.getYear())[1]*Math.PI/180);
-		g2D.rotate(sens*positionSoleil(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear())[3]*Math.PI/180);
-		g2D.rotate(-sens*Math.PI/2);
+		g.rotate(Math.toRadians(alphaSoleil(31, 12, year)));
+		g.rotate(-Math.toRadians(EQT()));
 		//###############
-//		g2D.rotate(Math.PI);
+		g.rotate(Math.PI);
 		//###############
 	}
 	
@@ -237,22 +203,22 @@ public class ReteController extends AstrolabePartController {
 		double e=0.0167086342-(0.0004203654+0.0000126734*t)*t;
 		double epsilon = 23.43928111-(468.0927-0.0152*t)*t/3600;
 		
-		double m_rad=m/180*Math.PI;
+		double m_rad=Math.toRadians(m);
 		double c_rad = 2*e*Math.sin(m_rad)+1.25*e*e*Math.sin(2*m_rad)+13/12.*e*e*e*Math.sin(3*m_rad);
-		double lambda=(lm+c_rad*180/Math.PI)%360;
+		double lambda=(lm+Math.toDegrees(c_rad))%360;
 		if (lambda<0) {
 			lambda+=360;
 		}
-		double epsilon_rad = epsilon*Math.PI/180;
-		double lambda_rad= lambda/180*Math.PI;
-		double alpha = Math.atan2(Math.cos(epsilon_rad)*Math.sin(lambda_rad), Math.cos(lambda_rad))*180/Math.PI;
+		double epsilon_rad = Math.toRadians(epsilon);
+		double lambda_rad= Math.toRadians(lambda);
+		double alpha = Math.toDegrees(Math.atan2(Math.cos(epsilon_rad)*Math.sin(lambda_rad), Math.cos(lambda_rad)));
 		if (alpha<=0) {
 			alpha+=360;
 		}
-		double delta = Math.asin(Math.sin(epsilon_rad)*Math.sin(lambda_rad))*180/Math.PI;
-		double EQT= alpha-lm;
-		if (EQT<-5){
-			EQT+=360;
+		double delta = Math.toDegrees(Math.asin(Math.sin(epsilon_rad)*Math.sin(lambda_rad)));
+		double EQT = alpha-lm;
+		if (EQT < -5){
+			EQT += 360;
 		}
 		return new double[] {lambda, alpha, delta, EQT};
 	}
@@ -274,8 +240,7 @@ public class ReteController extends AstrolabePartController {
 	}
 	
 	public static double EQT() {
-		return 0;
-//		return EQT(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear());
+		return EQT(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear());
 	}
 
 	

@@ -11,7 +11,7 @@ public enum AstrolabeStyleModel {
 			new Color[] {new Color(212, 187, 80),new Color(113,102,40),new Color(100,94,40)},
 			new Color(40,40,40),
 			new Color(40,40,40),
-			Color.black
+			new Color(20,20,10)
 			),
 	ARAB(
 			"Arab",
