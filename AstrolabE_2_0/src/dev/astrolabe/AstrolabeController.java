@@ -59,7 +59,6 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		
 		addStarsToView();
 		addPlanetsToView();
-		addSunToView();
 		
 		AstrolabeViewListener listener = new AstrolabeViewListener(this);
 		
@@ -255,9 +254,13 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		}
 	}
 	
-
-	private void addSunToView() {
-		Sun.sun.addToAstrolabeView();
+	public void toggleSunAdded() {
+		if (stateModel.isSunDisplayed()) {
+			view.add(Sun.sun.getView(),0);
+		}
+		else {
+			view.remove(Sun.sun.getView());	
+		}
 	}
 	
 	@Override
@@ -328,5 +331,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	public boolean closeToRule(Point p) {
 		return Math.abs(Math.atan2(p.y-getAstrolabeCenter().y, p.x-getAstrolabeCenter().x) - getRuleRotation()) < Math.toRadians(4); //TODO make this tolerance constant
 	}
+
+	
 
 }

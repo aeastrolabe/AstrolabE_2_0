@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 import dev.astrolabe.AstrolabeController;
-import dev.sky.dynamik.geocentric.Sun;
 import dev.struct.Controller;
 
 public class DisplaySunController extends Controller {
@@ -30,11 +30,19 @@ public class DisplaySunController extends Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				astrolabeController.getStateModel().toggleSunDisplayed();
-				toggleDisplaySunButton.setText("Sun displayed : "+astrolabeController.getStateModel().isSunDisplayed());
-				Sun.sun.getView().repaint();
-				astrolabeController.getView().repaint();
-				view.repaint();
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						astrolabeController.getStateModel().toggleSunDisplayed();
+						astrolabeController.toggleSunAdded();
+						toggleDisplaySunButton.setText("Sun displayed : "+astrolabeController.getStateModel().isSunDisplayed());
+						astrolabeController.getView().repaint();
+					}
+				});
+				
+
+				
 			}
 		});
 		view.add(toggleDisplaySunButton);

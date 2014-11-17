@@ -1,7 +1,6 @@
 package dev.astrolabe.part.rete;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -96,14 +95,6 @@ public class ReteController extends AstrolabePartController {
 						tick = dr_limbe/8;
 					}
 				trait=1;
-				}
-				if (i_day == 1 && i_month == 1) {
-					g.setColor(Color.magenta);
-					g.fillOval(-(int)r-5, -5, 10, 10);
-				}
-				if (i_day == 1 && i_month == 2) {
-					g.setColor(Color.pink);
-					g.fillOval(-(int)r-5, -5, 10, 10);
 				}
 				
 				g.setStroke(new BasicStroke((float) trait, BasicStroke.CAP_SQUARE,
