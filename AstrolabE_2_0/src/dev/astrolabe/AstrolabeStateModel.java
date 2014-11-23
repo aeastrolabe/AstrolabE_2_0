@@ -25,8 +25,8 @@ public class AstrolabeStateModel {
 	public final double TYMPAN_PADDING = 20;
 	
 	private boolean ruleLocked = false;
-	
 	private boolean sunDisplayed = false;
+	private boolean fullControlMode = false;
 	
 	private CelestialBodyModel selectedCelestialBody;
 	private CelestialBodyModel highlightedCelestialBody;
@@ -137,6 +137,24 @@ public class AstrolabeStateModel {
 	
 	public void toggleRuleLocked() {
 		this.ruleLocked = !ruleLocked;
+	}
+
+	/**
+	 * @return the fullControlMode
+	 */
+	public boolean isInFullControlMode() {
+		return fullControlMode;
+	}
+
+	/**
+	 * @param fullControlMode the fullControlMode to set
+	 */
+	public void setFullControlMode(boolean fullControlMode) {
+		this.fullControlMode = fullControlMode;
+	}
+	
+	public void toggleFullControlMode() {
+		this.fullControlMode = !fullControlMode;
 	}
 
 }

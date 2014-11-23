@@ -13,11 +13,13 @@ import dev.utils.JulianDate;
 
 public class ReteController extends AstrolabePartController {
 	
+	private ReteModel model;
 	protected ReteView view;
 
 	public ReteController(AstrolabeController astrolabeController) {
 		setAstrolabeController(astrolabeController);
 		setModels();
+		model = new ReteModel();
 		view = new ReteView(this);
 	}
 	
@@ -116,20 +118,9 @@ public class ReteController extends AstrolabePartController {
 		//###############
 	}
 	
+	//passer des choses dans le modèle
 	public void drawMonthsOnEcliptic(Graphics2D g) {
-		String[] months = new String[] {
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December"};
+		
 		
 		double x = getXecliptic();
 		double R = getRecliptic();
@@ -164,7 +155,7 @@ public class ReteController extends AstrolabePartController {
 					g.translate(0,-r);
 					double theta = Math.acos(-(x*x-r*r-R*R)/(2*r*R))*(i_month>=6 ? -1 : 1);;
 					g.rotate(-theta);
-					g.drawString(months[i_month-1], -10*months[i_month-1].length()/2, 20);	
+					g.drawString(model.getMonth(i_month), -10*model.getMonth(i_month).length()/2, 20);	
 					g.rotate(+theta);
 					g.translate(0, r);
 				}

@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import dev.astrolabe.ui.DisplaySunController;
+import dev.astrolabe.ui.FullControlModeController;
 import dev.astrolabe.ui.LockRuleController;
 import dev.mission.Mission;
 import dev.mission.RuleRotatedAligningStep;
@@ -37,6 +38,8 @@ public class AstrolabeMainController extends Controller {
 	
 	private DisplaySunController sunDisplayController;
 	
+	private FullControlModeController fullControlModeController;
+	
 	
 	JPanel top = new JPanel();
 	JPanel side = new JPanel();
@@ -59,6 +62,8 @@ public class AstrolabeMainController extends Controller {
 		lockRuleController = new LockRuleController(astrolabeController);
 		
 		sunDisplayController = new DisplaySunController(astrolabeController);
+		
+		fullControlModeController = new FullControlModeController(astrolabeController);
 		
 		createGUI();
 	}
@@ -85,6 +90,7 @@ public class AstrolabeMainController extends Controller {
 		side.add(CBDDcontroller.getView());
 		side.add(lockRuleController.getView());
 		side.add(sunDisplayController.getView());
+		side.add(fullControlModeController.getView());
 		
 		view.add(astrolabe,BorderLayout.CENTER);
 		view.add(top, BorderLayout.NORTH);
