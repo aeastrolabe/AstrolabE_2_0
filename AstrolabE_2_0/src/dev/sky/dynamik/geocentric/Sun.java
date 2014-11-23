@@ -39,7 +39,7 @@ public class Sun extends HeliocentricDynamicCelestialBody {
 		
 		model.setMagnitude(-5);
 		
-		view.image = ImportImage.read("stars/sun.png");
+		view.setImage(ImportImage.read("stars/sun.png"));
 	}
 	
 	public static double sunLongitude(double d) {

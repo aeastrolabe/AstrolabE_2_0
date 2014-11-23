@@ -43,7 +43,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		ea = 0;
 		Mb = 0;
 		Ma = 0;
-		view.image = null;
+		view.setImage(null);
 	}
 	
 	public Planet(String name, double[] planet_data) {
@@ -63,7 +63,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		Mb = planet_data[10];
 		Ma = planet_data[11];
 			
-		view.image = ImportImage.read("planets/"+name.toLowerCase()+".png");
+		view.setImage(ImportImage.read("planets/"+name.toLowerCase()+".png"));
 	}	
 	
 	public static void importPlanets(){

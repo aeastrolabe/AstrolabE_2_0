@@ -44,12 +44,11 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 		if (e.getClickCount() == 1) {
 			astrolabeController.setSelected(null);
 			astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
-			astrolabeController.drawAllStars();
 		}
 		if (e.getClickCount() == 2) {
 			astrolabeController.setRuleRotation(Math.atan2(e.getY() - astrolabeController.getAstrolabeCenter().y, e.getX() - astrolabeController.getAstrolabeCenter().x ));
-			astrolabeController.getView().repaint();
 		}
+		astrolabeController.getView().repaint();
 	}
 
 	@Override
@@ -176,7 +175,6 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 		else {
 			astrolabeController.scaleAstrolabeByRelativeTo(1/AstrolabeStateModel.SCALING_RATE, e.getPoint());
 		}
-		
 		astrolabeController.getView().repaint();
 	}
 

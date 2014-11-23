@@ -203,22 +203,6 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		stateModel.setSelectedCelestialBody(celestialBody);
 	}
 
-	@Override
-	public void drawAllStars() { //TODO correct this
-//		ListIterator<Constellation> iterc = Constellation.getConstellationList().listIterator();
-//		CelestialBodyController s;
-//		Graphics2D g = (Graphics2D) reteController.getView().getGraphics();
-//		while (iterc.hasNext()){
-//			Constellation c = iterc.next();
-//			for(Object o : c.getStarList().toArray()) {
-//				s = (CelestialBodyController) o;
-//				if (s.isDisplayed()) {
-//					s.getView().draw(g);
-//				}
-//			}
-//		}
-	}
-
 	/**
 	 * @return the astrolabeMainController
 	 */
@@ -277,7 +261,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	}
 	
 	@Override
-	public void paintCelestialBody(CelestialBodyController c) {
+	public void drawCelestialBody(CelestialBodyController c) {
 		if (c.isDisplayed()) {
 			c.getView().repaint();
 		}

@@ -24,11 +24,11 @@ public class CelestialBodyView extends JPanel  {
 	protected double y;
 	protected double zoom;
 	
-	public int size; //TODO : remplacer size par la taille réelle du panel
+	private int size; //TODO : remplacer size par la taille réelle du panel
 	
 	private double sizeCoeff = 1;
 
-	public BufferedImage image;
+	private BufferedImage image;
 	
 	public CelestialBodyController getController() {
 		return controller;
@@ -58,11 +58,8 @@ public class CelestialBodyView extends JPanel  {
 	}
 	
 	public void setCoordinates() {
-//		double imageWidth = 2* CelestialBodyController.getAstrolabeController().getAstrolabeInternalRadius();
-		double delta2 = CelestialBodyController.getAstrolabeController().getLocalisationModel().getHemisphere() >= 0 ? controller.model.getDelta() : controller.model.getDelta() ;
-//		CelestialBodyController.getAstrolabeController().getHomeplanetModel();
-		double rho =  AstrolabeHomeplanetModel.DEFAULT_EQUATOR_RADIUS*Math.tan(deg2rad((90. - delta2)/2.))
-				;///imageWidth*CelestialBodyController.getAstrolabeController().getAstrolabeRadius();
+		double delta = controller.model.getDelta();
+		double rho =  AstrolabeHomeplanetModel.DEFAULT_EQUATOR_RADIUS*Math.tan(deg2rad((90. - delta)/2.));
 		abscissa = rho*Math.sin(deg2rad(controller.model.getAlpha()));
 		ordinate = rho*Math.cos(deg2rad(controller.model.getAlpha()));
 		double zoom = CelestialBodyController.getAstrolabeController().getAstrolabeScale();
@@ -110,5 +107,12 @@ public class CelestialBodyView extends JPanel  {
 		this.sizeCoeff = sizeCoeff;
 	}
 	
+	public BufferedImage getImage() {
+		return image;
+	}
+	
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
 	
 }

@@ -8,11 +8,9 @@ public interface CelestialBodyHandler {
 	
 	public void setSelected(CelestialBodyModel celestialBody); 
 	
-	public void paintCelestialBody(CelestialBodyController c);
+	public void drawCelestialBody(CelestialBodyController c);
 	
 	void drawPlanets(Graphics2D g);
-
-	void drawAllStars();
 
 	void drawAllStars(Graphics2D g);
 

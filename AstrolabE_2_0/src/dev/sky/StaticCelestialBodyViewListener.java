@@ -3,6 +3,7 @@ package dev.sky;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 
 import dev.astrolabe.AstrolabeController;
 import dev.sky.dynamik.geocentric.Sun;
@@ -32,7 +33,7 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 			astrolabeController.getAstrolabeMainController().getCBDDcontroller().updateDisplayedData();
 			
 			//repainting
-			astrolabeController.paintCelestialBody(celest);
+			astrolabeController.drawCelestialBody(celest);
 		}
 		if (e.getClickCount() == 2) {
 			astrolabeController.setRuleRotation(astrolabeController.getReteRotation() + Math.atan2(celest.getView().getOrdinate(), celest.getView().getAbscissa()));
@@ -63,7 +64,7 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 		//}
 			
 		//repainting
-		astrolabeController.paintCelestialBody(celest);
+		astrolabeController.drawCelestialBody(celest);
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -79,7 +80,7 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 		celest.getView().setSizeCoeff(1.0);
 		
 		//repainting
-		astrolabeController.paintCelestialBody(celest);
+		astrolabeController.drawCelestialBody(celest);
 		
 		celest = null;
 	}
@@ -100,8 +101,9 @@ public class StaticCelestialBodyViewListener implements MouseListener {
 	
 	@SuppressWarnings("unused")
 	private boolean closeToCenter(Point p) {
-		return (p.x - celest.getView().size/2)*(p.x - celest.getView().size/2) + (p.x - celest.getView().size/2)*(p.x - celest.getView().size/2)
-				<= celest.getView().size*celest.getView().size/4;
+		int s = celest.getView().getHeight();
+		return new Point2D.Double(p.x - s/2, p.y - s/2).distance(0, 0)
+				<= s;
 	}
 
 	private void setupListener(MouseEvent e) {
