@@ -21,14 +21,14 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 	Point savedMousePosition = new Point();
 	Point currentMousePosition = new Point();
 	
-	int rotatingPart = 0;
+	private int rotatingPart = 0;
 	
 	private final int RETE_ROTATING = 1;
 	private final int RULE_ROTATING = 2;
 	
-	double savedReteRotation = 0;
+	private double savedReteRotation = 0;
 	
-	double savedRuleRotation = 0;
+	private double savedRuleRotation = 0;
 	
 	private int pressedButton = 0;
 	

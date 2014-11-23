@@ -168,7 +168,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	}
 	
 	public void setLatitude(double l) {
-		localisationModel.setLatitude(Math.abs(l));
+		localisationModel.setLatitude(l);
 	}
 	
 	public double getAstrolabeRadius() {
