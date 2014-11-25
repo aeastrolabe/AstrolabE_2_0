@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 import dev.astrolabe.AstrolabeHomeplanetModel;
 import dev.io.ImportImage;
@@ -97,12 +96,14 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 	}
 	
 	public static void setSphericalCoordinates(LinkedList<CelestialBodyController> planetList) {
-		ListIterator<CelestialBodyController> iter = planetList.listIterator();
-		
 		Planet p;
-		int[] ymd = new int[] {AstrolabeHomeplanetModel.getYear(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getDay()};
-		while (iter.hasNext()) {
-			p = (Planet) iter.next();
+		
+		//TODO why is this there ?
+		AstrolabeHomeplanetModel hpm = astrolabeController.getHomeplanetModel();
+		
+		int[] ymd = new int[] {hpm.getYear(), hpm.getMonth(), hpm.getDay()};
+		for(CelestialBodyController c : planetList) {
+			p = (Planet) c;
 			double[] tmp = p.geocentricRectangularToSphericalCoordinates(JulianDate.toJulian(ymd));
 			p.model.setAlpha(tmp[1]);
 			p.model.setDelta(tmp[2]);

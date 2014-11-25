@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import dev.astrolabe.AstrolabeController;
-import dev.astrolabe.AstrolabeHomeplanetModel;
 import dev.astrolabe.part.AstrolabePartController;
 import dev.utils.AstrolabeStroke;
 import dev.utils.JulianDate;
@@ -59,7 +58,7 @@ public class ReteController extends AstrolabePartController {
 				
 		double dr_limbe = astrolabeController.getStateModel().LIMBE_PADDING;
 
-		int year = AstrolabeHomeplanetModel.getYear();
+		int year = homeplanetModel.getYear();
 		
 		g.rotate(Math.toRadians(EQT()));      //+ ou - EQT
 		g.setColor(styleModel.getEclipticColor());
@@ -124,7 +123,7 @@ public class ReteController extends AstrolabePartController {
 		
 		double x = getXecliptic();
 		double R = getRecliptic();
-		int year = AstrolabeHomeplanetModel.getYear();
+		int year = homeplanetModel.getYear();
 		
 		g.rotate(Math.toRadians(EQT()));      //+ ou - EQT
 		g.setColor(styleModel.getEclipticColor());
@@ -230,8 +229,8 @@ public class ReteController extends AstrolabePartController {
 		return positionSoleil(day, month, year)[3];
 	}
 	
-	public static double EQT() {
-		return EQT(AstrolabeHomeplanetModel.getDay(), AstrolabeHomeplanetModel.getMonth(), AstrolabeHomeplanetModel.getYear());
+	public double EQT() {
+		return EQT(homeplanetModel.getDay(), homeplanetModel.getMonth(), homeplanetModel.getYear());
 	}
 
 	

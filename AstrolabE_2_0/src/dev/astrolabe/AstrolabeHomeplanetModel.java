@@ -12,16 +12,16 @@ public class AstrolabeHomeplanetModel {
 	 * Calendar in planet days with common origin the ***** TODO !!!
 	 */
 	
-	private static int year = setYear();
+	private int year = setYear();
 	
-	private static int month = Calendar.MONTH;
+	private int month = Calendar.MONTH;
 	
-	private static int day = Calendar.DAY_OF_MONTH;
+	private int day = Calendar.DAY_OF_MONTH;
 	
 	/**
 	 * @return the year
 	 */
-	public static int setYear() {
+	public int setYear() {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -29,14 +29,14 @@ public class AstrolabeHomeplanetModel {
 		return year;
 	}
 
-	public static int getYear() {
+	public int getYear() {
 		return year;
 	}
 
 	/**
 	 * @return the month
 	 */
-	public static int getMonth() {
+	public int getMonth() {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -47,14 +47,14 @@ public class AstrolabeHomeplanetModel {
 	/**
 	 * @param month the month to set
 	 */
-	public static void setMonth(int month) {
-		AstrolabeHomeplanetModel.month = month;
+	public void setMonth(int month) {
+		this.month = month;
 	}
 
 	/**
 	 * @return the day
 	 */
-	public static int getDay() {
+	public int getDay() {
 		Date date = new Date(System.currentTimeMillis());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -65,8 +65,8 @@ public class AstrolabeHomeplanetModel {
 	/**
 	 * @param day the day to set
 	 */
-	public static void setDay(int day) {
-		AstrolabeHomeplanetModel.day = day;
+	public void setDay(int day) {
+		this.day = day;
 	}
 
 	public double obliquite() {

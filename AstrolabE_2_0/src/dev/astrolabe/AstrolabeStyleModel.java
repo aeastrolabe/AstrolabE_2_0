@@ -47,6 +47,8 @@ public enum AstrolabeStyleModel {
 	private Color equatorColor = Color.red;
 	private Color tropicsColor = Color.red;
 	private Color eclipticColor = Color.black;
+	
+	public final static AstrolabeStyleModel DEFAULT = MODERN;
 
 	//Constructeur
 	AstrolabeStyleModel(

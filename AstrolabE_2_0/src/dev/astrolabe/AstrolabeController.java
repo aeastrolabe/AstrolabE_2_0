@@ -31,6 +31,11 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	private ReteController reteController;
 	private RuleController ruleController;
 	
+	private static final Integer LAYER_BACKGROUND = new Integer(0);
+	private static final Integer TYMPAN_BACKGROUND = new Integer(1);
+	private static final Integer RETE_BACKGROUND = new Integer(2);
+	private static final Integer RULE_BACKGROUND = new Integer(3);
+	
 	JPanel background;
 		
 	public AstrolabeController(AstrolabeMainController astrolabeMainController) {
@@ -39,7 +44,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		stateModel = new AstrolabeStateModel();
 		homeplanetModel = new AstrolabeHomeplanetModel();
 		localisationModel = new AstrolabeLocalisationModel();
-		styleModel = AstrolabeStyleModel.get("Default");
+		styleModel = AstrolabeStyleModel.DEFAULT;
 		
 		view = new AstrolabeView(this);
 		view.setPreferredSize(new Dimension(600, 400));
@@ -82,10 +87,10 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	@Override
 	public void createGUI() {
 		updateBackgroundColor();
-		view.add(background,new Integer(0),0);
-		view.add(tympanController.getView(),new Integer(1),0);
-		view.add(reteController.getView(),new Integer(2),0);
-		view.add(ruleController.getView(), new Integer(3),0);
+		view.add(background, LAYER_BACKGROUND, 0);
+		view.add(tympanController.getView(), TYMPAN_BACKGROUND, 0);
+		view.add(reteController.getView(),RETE_BACKGROUND , 0);
+		view.add(ruleController.getView(), RULE_BACKGROUND, 0);
 		view.revalidate();
 	}
 
