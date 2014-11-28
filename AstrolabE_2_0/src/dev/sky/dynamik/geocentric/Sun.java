@@ -94,6 +94,12 @@ public class Sun extends HeliocentricDynamicCelestialBody {
 		
 		return result;
 	}
+
+	@Override
+	public void updatePosition() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 //	public void paintSun(Graphics2D g) {
 //		if (astrolabeController.getStateModel().isSunDisplayed()) {

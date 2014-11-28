@@ -8,13 +8,12 @@ import java.util.LinkedList;
 
 import dev.astrolabe.AstrolabeHomeplanetModel;
 import dev.io.ImportImage;
-import dev.sky.CelestialBodyController;
 import dev.sky.io.ImportCelestialData;
 import dev.utils.JulianDate;
 
 public class Planet extends HeliocentricDynamicCelestialBody {
 	
-	public static LinkedList<CelestialBodyController> planetList = new LinkedList<CelestialBodyController>();
+	public static LinkedList<Planet> planetList = new LinkedList<Planet>();
 
 	public static Planet mercury;
 	public static Planet venus;
@@ -47,6 +46,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 	
 	public Planet(String name, double[] planet_data) {
 		super(name);
+		
 		model.setConstellation("Not available"); //TODO do we want to do something with this ?
 		model.setType("Planet");
 		Nb = planet_data[0];
@@ -61,6 +61,8 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		ea = planet_data[9];
 		Mb = planet_data[10];
 		Ma = planet_data[11];
+		
+//		setSphericalCoordinates();
 			
 		view.setImage(ImportImage.read("planets/"+name.toLowerCase()+".png"));
 	}	
@@ -85,9 +87,7 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 			neptune = (Planet) planetList.get(6);
 			
 			planetList.removeLast();
-			
-			setSphericalCoordinates(planetList);
-			
+						
 			System.out.println("**Importation des planètes terminée**");
 			
 		} catch (IOException e) {
@@ -95,20 +95,25 @@ public class Planet extends HeliocentricDynamicCelestialBody {
 		}
 	}
 	
-	public static void setSphericalCoordinates(LinkedList<CelestialBodyController> planetList) {
-		Planet p;
-		
+	
+	public void setSphericalCoordinates() {
 		//TODO why is this there ?
 		AstrolabeHomeplanetModel hpm = astrolabeController.getHomeplanetModel();
 		
 		int[] ymd = new int[] {hpm.getYear(), hpm.getMonth(), hpm.getDay()};
-		for(CelestialBodyController c : planetList) {
-			p = (Planet) c;
-			double[] tmp = p.geocentricRectangularToSphericalCoordinates(JulianDate.toJulian(ymd));
-			p.model.setAlpha(tmp[1]);
-			p.model.setDelta(tmp[2]);
-		}
+		double[] tmp = this.geocentricRectangularToSphericalCoordinates(JulianDate.toJulian(ymd));
+		model.setAlpha(tmp[1]);
+		model.setDelta(tmp[2]);
+	}
+
+	@Override
+	public void updatePosition() {
+		setSphericalCoordinates();
 	}
 	
-	
+	public static void updatePositions() {
+		for(Planet p : planetList) {
+			p.updatePosition();
+		}
+	}
 }

@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public MainFrame() {
-		setPreferredSize(new Dimension(1200, 800));
+		setPreferredSize(new Dimension(1300, 800));
 		setLocation(20, 20);
 		setResizable(false);
 		setTitle("AstrolabE 2.0 - dev version");

@@ -7,5 +7,7 @@ public abstract class DynamicCelestialBody extends CelestialBodyController {
 	public DynamicCelestialBody(String name) {
 		super(name);
 	}
+	
+	public abstract void updatePosition();
 
 }

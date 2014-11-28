@@ -10,11 +10,11 @@ public interface CelestialBodyHandler {
 	
 	public void drawCelestialBody(CelestialBodyController c);
 	
-	void drawPlanets(Graphics2D g);
+	public void drawPlanets(Graphics2D g);
 
-	void drawAllStars(Graphics2D g);
+	public void drawAllStars(Graphics2D g);
 
-	void drawSun(Graphics2D g);
+	public void drawSun(Graphics2D g);
 	
 //	private CelestialBodyController selected;
 //

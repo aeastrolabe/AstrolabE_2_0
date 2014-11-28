@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import dev.astrolabe.part.rete.ReteController;
 import dev.astrolabe.part.rule.RuleController;
@@ -31,12 +32,16 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	private ReteController reteController;
 	private RuleController ruleController;
 	
-	private static final Integer LAYER_BACKGROUND = new Integer(0);
-	private static final Integer TYMPAN_BACKGROUND = new Integer(1);
-	private static final Integer RETE_BACKGROUND = new Integer(2);
-	private static final Integer RULE_BACKGROUND = new Integer(3);
+	public static final Integer LAYER_BACKGROUND = new Integer(5);
+	public static final Integer LAYER_TYMPAN= new Integer(4);
+	public static final Integer LAYER_RETE= new Integer(3);
+	public static final Integer LAYER_RULE = new Integer(2);
+	public static final Integer LAYER_CELEST = new Integer(1);
+	public static final Integer LAYER_OVERLAY = new Integer(0);
 	
-	JPanel background;
+	AstrolabeBackgroundView background;
+	AstrolabeViewOverlay overlay;
+	public JPanel starsLayer;
 		
 	public AstrolabeController(AstrolabeMainController astrolabeMainController) {
 		this.setAstrolabeMainController(astrolabeMainController);
@@ -58,18 +63,29 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		reteController = new ReteController(this);
 		ruleController = new RuleController(this);
 		
-		background = new JPanel();
+		background = new AstrolabeBackgroundView(view);
+		overlay = new AstrolabeViewOverlay(view);
 		
-		createGUI();
 		
-		addStarsToView();
-		addPlanetsToView();
-		
+		starsLayer = new JPanel();
+		starsLayer.setOpaque(false);
+		starsLayer.setFocusable(false);
+		starsLayer.setEnabled(false);
+
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				createGUI();
+			}
+		});
+
 		AstrolabeViewListener listener = new AstrolabeViewListener(this);
 		
 		view.addMouseListener(listener);
 		view.addMouseMotionListener(listener);
 		view.addMouseWheelListener(listener);
+
 	}
 
 	private void setupStateModel() {
@@ -84,13 +100,31 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		background.setBackground(styleModel.getBackgroundColor());
 	}
 	
+//	@Override
+//	public void createGUI() {
+//		updateBackgroundColor();
+//		view.add(background, LAYER_BACKGROUND.intValue());
+//		view.add(tympanController.getView(), LAYER_TYMPAN.intValue());
+//		view.add(reteController.getView(),LAYER_RETE.intValue());
+//		view.add(ruleController.getView(), LAYER_RULE.intValue());
+//		view.add(starsLayer, LAYER_CELEST.intValue());
+//		addStarsToView();
+////		addPlanetsToView();
+//		view.add(overlay,LAYER_OVERLAY.intValue());
+//		view.revalidate();
+//	}
+	
 	@Override
 	public void createGUI() {
 		updateBackgroundColor();
-		view.add(background, LAYER_BACKGROUND, 0);
-		view.add(tympanController.getView(), TYMPAN_BACKGROUND, 0);
-		view.add(reteController.getView(),RETE_BACKGROUND , 0);
-		view.add(ruleController.getView(), RULE_BACKGROUND, 0);
+		view.add(overlay,LAYER_OVERLAY.intValue());
+		view.add(starsLayer, LAYER_CELEST.intValue());
+		view.add(ruleController.getView(), LAYER_RULE.intValue());
+		view.add(reteController.getView(),LAYER_RETE.intValue());
+		view.add(tympanController.getView(), LAYER_TYMPAN.intValue());
+		view.add(background, LAYER_BACKGROUND.intValue());
+
+		addStarsToView();
 		view.revalidate();
 	}
 
@@ -111,7 +145,10 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 			tympanController.getView().setBounds(view.getVisibleRect());
 			reteController.getView().setBounds(view.getVisibleRect());
 			ruleController.getView().setBounds(view.getVisibleRect());
+			starsLayer.setBounds(view.getVisibleRect());
+			overlay.setBounds(view.getVisibleRect());
 		}	
+		
 	}
 
 	public AstrolabeView getView() {
@@ -223,10 +260,8 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	}
 
 	public void addStarsToView() {
-		CelestialBodyController s;
 		for(Constellation c : Constellation.getConstellationList()) {
-			for(Object o : c.getStarList()) {
-				s = (CelestialBodyController) o;
+			for(CelestialBodyController s : c.getStarList()) {
 				if (s.isDisplayed()) {
 					s.addToAstrolabeView();
 				}
@@ -274,11 +309,10 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	
 	@Override
 	public void drawPlanets(Graphics2D g) {
-		CelestialBodyController s;
-		for(Object o : Planet.planetList) {
-			s = (CelestialBodyController) o;
-			if (s.isDisplayed()) {
-				s.getView().draw(g);
+		for(Planet p : Planet.planetList) {
+			if (p.isDisplayed()) {
+				p.updatePosition();
+				p.getView().draw(g);
 			}
 		}
 	}

@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class AstrolabeView extends JPanel {
+public class AstrolabeView extends JLayeredPane {
 
 	AstrolabeController controller;
 	
