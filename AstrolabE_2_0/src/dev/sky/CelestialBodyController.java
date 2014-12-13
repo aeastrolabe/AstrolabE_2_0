@@ -39,7 +39,6 @@ public abstract class CelestialBodyController {
 	
 	public void addToAstrolabeView() {
 		CelestialBodyController.getAstrolabeController().starsLayer.add(view);
-		view.setOpaque(true);
 	}
 	
 	public boolean isDisplayed() {

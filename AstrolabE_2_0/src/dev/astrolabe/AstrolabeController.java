@@ -32,12 +32,12 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	private ReteController reteController;
 	private RuleController ruleController;
 	
-	public static final Integer LAYER_BACKGROUND = new Integer(5);
-	public static final Integer LAYER_TYMPAN= new Integer(4);
-	public static final Integer LAYER_RETE= new Integer(3);
-	public static final Integer LAYER_RULE = new Integer(2);
-	public static final Integer LAYER_CELEST = new Integer(1);
-	public static final Integer LAYER_OVERLAY = new Integer(0);
+	public static final Integer LAYER_BACKGROUND = new Integer(0);
+	public static final Integer LAYER_TYMPAN= new Integer(1);
+	public static final Integer LAYER_RETE= new Integer(2);
+	public static final Integer LAYER_RULE = new Integer(3);
+	public static final Integer LAYER_CELEST = new Integer(4);
+	public static final Integer LAYER_OVERLAY = new Integer(5);
 	
 	AstrolabeBackgroundView background;
 	AstrolabeViewOverlay overlay;
@@ -69,8 +69,10 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 		
 		starsLayer = new JPanel();
 		starsLayer.setOpaque(false);
-		starsLayer.setFocusable(false);
-		starsLayer.setEnabled(false);
+		starsLayer.setFocusable(true);
+		starsLayer.setEnabled(true);
+		
+		overlay.setOpaque(true);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			
@@ -109,7 +111,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 //		view.add(ruleController.getView(), LAYER_RULE.intValue());
 //		view.add(starsLayer, LAYER_CELEST.intValue());
 //		addStarsToView();
-////		addPlanetsToView();
+//		addPlanetsToView();
 //		view.add(overlay,LAYER_OVERLAY.intValue());
 //		view.revalidate();
 //	}
@@ -117,14 +119,22 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	@Override
 	public void createGUI() {
 		updateBackgroundColor();
-		view.add(overlay,LAYER_OVERLAY.intValue());
-		view.add(starsLayer, LAYER_CELEST.intValue());
-		view.add(ruleController.getView(), LAYER_RULE.intValue());
-		view.add(reteController.getView(),LAYER_RETE.intValue());
-		view.add(tympanController.getView(), LAYER_TYMPAN.intValue());
-		view.add(background, LAYER_BACKGROUND.intValue());
+		addPlanetsToView();
+		
+		view.add(background);
+		view.add(tympanController.getView());
+		view.add(reteController.getView());
+		view.add(ruleController.getView());
+		view.add(starsLayer);
+		view.add(overlay);
 
-		addStarsToView();
+		view.setLayer(background, LAYER_BACKGROUND);
+		view.setLayer(tympanController.getView(), LAYER_TYMPAN);
+		view.setLayer(reteController.getView(), LAYER_RETE);
+		view.setLayer(ruleController.getView(), LAYER_RULE);
+		view.setLayer(starsLayer, LAYER_CELEST);
+		view.setLayer(overlay, LAYER_OVERLAY);
+		
 		view.revalidate();
 	}
 
@@ -271,19 +281,20 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 	
 
 	private void addPlanetsToView() {
-		for(CelestialBodyController b : Planet.planetList) {
-			if (b.isDisplayed()) {
-				b.addToAstrolabeView();
-			}
-		}
+//		for(CelestialBodyController b : Planet.planetList) {
+//			if (b.isDisplayed()) {
+//				b.addToAstrolabeView();
+//			}
+//		}
+		Planet.mars.addToAstrolabeView();
 	}
 	
 	public void toggleSunAdded() {
 		if (stateModel.isSunDisplayed()) {
-			view.add(Sun.sun.getView(),0);
+			starsLayer.add(Sun.sun.getView());
 		}
 		else {
-			view.remove(Sun.sun.getView());	
+			starsLayer.remove(Sun.sun.getView());	
 		}
 	}
 	
@@ -352,7 +363,7 @@ public class AstrolabeController extends Controller implements CelestialBodyHand
 
 
 	public boolean closeToRule(Point p) {
-		return Math.abs(Math.atan2(p.y-getAstrolabeCenter().y, p.x-getAstrolabeCenter().x) - getRuleRotation()) < Math.toRadians(4); //TODO make this tolerance constant
+		return Math.abs(Math.atan2(p.y-getAstrolabeCenter().y, p.x-getAstrolabeCenter().x) - getRuleRotation()) < Math.toRadians(2); //TODO make this tolerance constant
 	}
 
 	

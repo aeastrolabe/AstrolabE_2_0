@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class AstrolabeHomeplanetModel {
 	
-	public final static double DEFAULT_EQUATOR_RADIUS = 200;
+	public final static double DEFAULT_EQUATOR_RADIUS = 200; //TODO update with initial frame size
 	
 	
 	/**

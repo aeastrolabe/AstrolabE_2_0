@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class AstrolabeView extends JLayeredPane {
@@ -27,7 +26,7 @@ public class AstrolabeView extends JLayeredPane {
 		Graphics2D g2 = (Graphics2D) g;
 		super.paintComponent(g2);
 		super.paintComponents(g2);
-		
+				
 		//this is only called once if the localisation doesn't change
 		controller.initCenterAndBounds();
 		

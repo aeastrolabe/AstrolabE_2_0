@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 
 import dev.astrolabe.AstrolabeController;
 import dev.astrolabe.AstrolabeMainController;
+import dev.io.ImportImage;
 import dev.menubar.AppMenuBar;
 import dev.sky.dynamik.heliocentric.Planet;
 import dev.sky.io.ImportCelestialData;
@@ -30,12 +31,13 @@ public class MainFrame extends JFrame {
 	}
 	
 	public MainFrame() {
-		setPreferredSize(new Dimension(1300, 800));
+		setPreferredSize(new Dimension(1300,800));
 		setLocation(20, 20);
 		setResizable(false);
 		setTitle("AstrolabE 2.0 - dev version");
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setIconImage(ImportImage.read("../../../gui/logo.png"));
 		
 		ImportCelestialData.getStarsShort();
 		Planet.importPlanets();

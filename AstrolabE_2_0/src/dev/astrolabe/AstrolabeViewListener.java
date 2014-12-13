@@ -157,6 +157,7 @@ public class AstrolabeViewListener implements MouseListener, MouseMotionListener
 			dragMotion = new Point();
 			pressedButton = 0;
 		}
+		astrolabeController.getView().repaint();
 	}
 
 

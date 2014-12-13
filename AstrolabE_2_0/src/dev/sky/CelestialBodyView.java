@@ -36,6 +36,7 @@ public class CelestialBodyView extends JPanel  {
 	
 	public CelestialBodyView(CelestialBodyController celestialBodyController) {
 		controller = celestialBodyController;
+		setOpaque(true);
 	}
 
 	public double getAbscissa() {
@@ -87,7 +88,7 @@ public class CelestialBodyView extends JPanel  {
 		
 	}
 	
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		//This is necessary when hovering over the body
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
